@@ -10,6 +10,7 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
+    photo_filename = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     firstname = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     lastname = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     username = sqlalchemy.Column(sqlalchemy.String, unique=True,
