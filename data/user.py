@@ -10,7 +10,10 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
-    nickname = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    firstname = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    lastname = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    username = sqlalchemy.Column(sqlalchemy.String, unique=True,
+                                 nullable=True)
     about = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     email = sqlalchemy.Column(sqlalchemy.String,
                               index=True, unique=True, nullable=True)
@@ -23,6 +26,6 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
         'user_board_association',
         SqlAlchemyBase.metadata,
         sqlalchemy.Column('user', sqlalchemy.Integer,
-                          sqlalchemy.ForeignKey('user.id')),
+                          sqlalchemy.ForeignKey('user.username')),
         sqlalchemy.Column('board', sqlalchemy.Integer,
                           sqlalchemy.ForeignKey('board.id')))
