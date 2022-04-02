@@ -40,6 +40,22 @@
             </p>
         {% endfor %}
         </p>
+        <p>
+        {{ form.source.label }}<br>
+        {{ form.source(class="form-control") }}<br>
+        {% for error in form.source.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        <p>
+        {{ form.category.label }}<br>
+        {{ form.category(class="form-control" id="classSelect") }}<br>
+        {% for error in form.category.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+        </p>
         {{message}}
         <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     </form>
