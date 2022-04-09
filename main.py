@@ -1,11 +1,12 @@
 from flask import Flask
 from flask_restful import Api
-
 import users_resources
 from data.db_session import global_init
 import user_api
+from dotenv import load_dotenv
 
 app = Flask(__name__)
+load_dotenv()
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 api = Api(app)
 api.add_resource(users_resources.UsersListResource, '/register')

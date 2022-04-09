@@ -3,6 +3,7 @@ from forms.user import RegisterForm
 from flask import render_template, make_response, redirect
 from data.db_session import create_session
 from data.user import User
+from message import send_message
 
 
 class UsersListResource(Resource):
@@ -40,6 +41,12 @@ class UsersListResource(Resource):
 
             )
             user.set_password(form.password.data)
-            db_sess.add(user)
-            db_sess.commit()
-            return redirect('/login')
+            '''db_sess.add(user)
+            db_sess.commit()'''
+        text = '''Добро пожаловать в Мемтерест!\nВы успешно зарегистрировались на нашем сайте и теперь можете:
+        - создавать доски и сохранять на них мемы и анекдоты
+        - загружать на сайт мемы и анекдоты
+        - искать мемы и анекдоты по категориям
+        (Вы этого всего, конечно, пока не можете, но это пока)'''
+        send_message(form.email.data, text, 'приветствие', 'static/img/greeting.png')
+        return make_response(redirect('/login'))
