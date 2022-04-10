@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user, mixins
 from flask_restful import Api
 import pin_resources
 import users_resources
@@ -29,7 +29,10 @@ def load_user(user_id):
 
 @app.route('/')
 def base():
-    return render_template('base.html', title='Мемтерест')
+    curus = current_user
+    if curus.__class__ == mixins.AnonymousUserMixin:
+        curus = None
+    return render_template('base.html', title='Мемтерест', current_user=curus)
 
 
 if __name__ == '__main__':
