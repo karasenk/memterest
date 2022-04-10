@@ -1,0 +1,153 @@
+html * {
+    font-family: Bahnschrift;
+}
+
+
+@font-face {
+    font-family: Bahnschrift;
+    src: url("../fonts/bahnschrift-Regular.ttf");
+}
+
+h1 {
+    font-weight: 400;
+    font-size: 40px;
+    padding-left: 30px;
+    color: #B11D30;
+}
+
+p {
+    padding-left: 8px;
+    color: #B11D30;
+}
+
+header {
+   margin-top: -8px;
+   margin-left: -8px;
+   width: 100%;
+   height: 80px;
+   background-color: #FDE6D1;
+   position: fixed;
+}
+
+.logo {
+    margin-top:7px;
+    margin-left:15px;
+    float: left;
+}
+
+.memterest {
+    font-size: 350%;
+    margin-top: 9px;
+    margin-left: 12px;
+    font-weight: 600;
+    color: #EA272C;
+    float: left;
+}
+
+.avatar {
+    margin: 14px;
+    float: right;
+}
+
+.redbtn, ::-webkit-file-upload-button {
+    font-size: 125%;
+    background-color: #EA272C;
+    color: #FDE6D1;
+    padding: 13px;
+    margin-top:14px;
+    margin-right:15px;
+    border-radius: 5%;
+}
+
+.redbtn {
+    float: right;
+}
+
+.yelbtn {
+    font-size: 125%;
+    background-color: #FDE6D1;
+    color: #EA272C;
+    padding: 13px;
+    margin-top:14px;
+    margin-right:15px;
+    float: right;
+    border-radius: 5%;
+}
+
+.yellowblock {
+    background-color: #FDE6D1;
+    padding: 10px;
+    border-radius: 1%;
+    width: 30%;
+    font-size: 20px;
+}
+
+input[type=submit] {
+    font-size: 100%;
+    background-color: #EA272C;
+    color: #FDE6D1;
+    padding: 8px;
+    margin-top:5px;
+    margin-right:15px;
+    border-radius: 5%;
+    border: 0px;
+}
+
+input, textarea  {
+    width: 95%;
+    font-size: 100%;
+    background-color: #FFFFFF;
+    color: #B11D30;
+    padding: 8px;
+    margin-top:5px;
+    margin-right:15px;
+    border-radius: 5%;
+    border: 0px;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  background-color: #FFFAF5;
+}
+
+input[type="checkbox"] {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+input[type="checkbox"]+label {
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+}
+input[type="checkbox"]+label::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+  margin-right: 0.5em;
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 80% 80%;
+}
+input[type="checkbox"]:checked+label::before {
+  background-color: #ffffff;
+  background-image: url("../img/checked.png");
+}
+
+input[type=file] {
+    background-color: #FDE6D1;
+}
+
+::-webkit-file-upload-button {
+    font-size: 100%;
+    background-color: #EA272C;
+    color: #FDE6D1;
+    padding: 8px;
+    margin-top:5px;
+    margin-right:10px;
+    border-radius: 5%;
+    border: 0px;
+}

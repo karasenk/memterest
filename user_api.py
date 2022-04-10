@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect
 from forms.user import LoginForm
 from data.db_session import create_session
 from data.user import User
@@ -15,7 +15,7 @@ blueprint = Blueprint(
 @blueprint.route('/login', methods=['GET'])
 def login_get():
     form = LoginForm()
-    return render_template('login.html', form=form, title='Авторизация')
+    return render_template('login.html', form=form, title='Авторизация', current_user=None)
 
 
 @blueprint.route('/login', methods=['POST'])
@@ -27,9 +27,11 @@ def login_post():
         if not user:
             user = session.query(User).filter(User.username == form.email_or_username.data).first()
         if not user:
-            return render_template('login.html', form=form, title='Авторизация', message='Пользователь не найден')
+            return render_template('login.html', form=form, title='Авторизация',
+                                   message='Пользователь не найден', current_user=None)
         if not User.check_password(user, form.password.data):
-            return render_template('login.html', form=form, title='Авторизация', message='Неверный пароль')
+            return render_template('login.html', form=form, title='Авторизация',
+                                   message='Неверный пароль', current_user=None)
         login_user(user, remember=form.remember_me.data)
-        return 'Successfully'
-    return render_template('login.html', form=form, title='Авторизация')
+        return redirect('/')
+    return render_template('login.html', form=form, title='Авторизация', current_user=None)
