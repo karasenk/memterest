@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from flask_login import current_user
+from flask_login import current_user, login_required
 from forms.pin import PinForm
 from flask import render_template, make_response, redirect
 from data.db_session import create_session
@@ -9,6 +9,7 @@ from data.category import Category
 
 
 class PinListResource(Resource):
+    @login_required
     def get(self):
         form = PinForm()
         db_sess = create_session()
@@ -16,7 +17,7 @@ class PinListResource(Resource):
             Board.name).filter(Board.author_username == current_user.username).all()]
         return make_response(render_template('pin.html',
                                              form=form, title='Загрузка мема'))
-
+    @login_required
     def post(self):
         form = PinForm()
         db_sess = create_session()
