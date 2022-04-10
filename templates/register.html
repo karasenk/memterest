@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="yellowblock" style="position:absolute;top:90px;left:20%;z-index: -1;">
 <h1>Регистрация</h1>
 <form action="" method="post" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
@@ -33,7 +34,7 @@
     </p>
     <p>
         {{ form.photo.label }}<br>
-        {{ form.photo(type="file") }}<br>
+        {{ form.photo(type="file")}}<br>
         {% for error in form.photo.errors %}
             <p class="alert alert-danger" role="alert">
                 {{ error }}
@@ -69,7 +70,7 @@
     </p>
     <p>
         {{ form.about.label }}<br>
-        {{ form.about(class="form-control") }}<br>
+        {{ form.about(class="form-control")}}<br>
         {% for error in form.about.errors %}
             <p class="alert alert-danger" role="alert">
                 {{ error }}
@@ -79,4 +80,5 @@
     {{message}}
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
 </form>
+</div>
 {% endblock %}
