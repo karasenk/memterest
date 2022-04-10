@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from flask_login import current_user, login_required
+from flask_login import current_user, mixins
 from forms.board import BoardForm
 from flask import render_template, make_response, redirect
 from data.db_session import create_session
@@ -8,14 +8,16 @@ from data.user import User
 
 
 class BoardListResource(Resource):
-    @login_required
     def get(self):
+        if current_user.__class__ == mixins.AnonymousUserMixin:
+            return redirect("/")
         form = BoardForm()
         return make_response(render_template('board.html', form=form,
                                              title='Создание доски'))
 
-    @login_required
     def post(self):
+        if current_user.__class__ == mixins.AnonymousUserMixin:
+            return redirect("/")
         form = BoardForm()
         db_sess = create_session()
         usernames = form.collaborators.data.split()
