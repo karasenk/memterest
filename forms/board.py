@@ -6,5 +6,5 @@ from wtforms.validators import DataRequired
 class BoardForm(FlaskForm):
     title = StringField('Название', validators=[DataRequired()])
     description = StringField('Описание')
-    collaborators = StringField('Соавторы')
+    collaborators = StringField('Юзернеймы соавторов')
     submit = SubmitField('Сохранить')

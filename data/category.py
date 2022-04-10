@@ -15,3 +15,10 @@ class Category(SqlAlchemyBase, SerializerMixin):
                           sqlalchemy.ForeignKey('pin.id')),
         sqlalchemy.Column('category', sqlalchemy.Integer,
                           sqlalchemy.ForeignKey('category.id')))
+    anecdote_table = sqlalchemy.Table(
+        'anecdote_category_association',
+        SqlAlchemyBase.metadata,
+        sqlalchemy.Column('anecdote', sqlalchemy.Integer,
+                          sqlalchemy.ForeignKey('anecdote.id')),
+        sqlalchemy.Column('category', sqlalchemy.Integer,
+                          sqlalchemy.ForeignKey('category.id')))

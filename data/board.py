@@ -11,6 +11,7 @@ class Board(SqlAlchemyBase, SerializerMixin):
                            primary_key=True, autoincrement=True)
     name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     collaborators = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    description = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     author_username = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                      default=datetime.datetime.now)
@@ -19,5 +20,12 @@ class Board(SqlAlchemyBase, SerializerMixin):
         SqlAlchemyBase.metadata,
         sqlalchemy.Column('pin', sqlalchemy.Integer,
                           sqlalchemy.ForeignKey('pin.id')),
+        sqlalchemy.Column('board', sqlalchemy.Integer,
+                          sqlalchemy.ForeignKey('board.id')))
+    anecdotes_table = sqlalchemy.Table(
+        'anecdote_board_association',
+        SqlAlchemyBase.metadata,
+        sqlalchemy.Column('anecdote', sqlalchemy.Integer,
+                          sqlalchemy.ForeignKey('anecdote.id')),
         sqlalchemy.Column('board', sqlalchemy.Integer,
                           sqlalchemy.ForeignKey('board.id')))

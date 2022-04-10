@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Добавление анекдота</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.title.label }}<br>
+            {{ form.title(class="form-control") }}<br>
+            {% for error in form.title.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+        {{ form.anecdote.label }}<br>
+        {{ form.anecdote(type="file" class="form-control-file") }}<br>
+        {% for error in form.anecdote.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+        </p>
+        <p>
+        {{ form.board.label }}<br>
+        {{ form.board(class="form-control" id="classSelect") }}<br>
+        {% for error in form.board.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+        </p>
+        <p>
+        {{ form.source.label }}<br>
+        {{ form.source(class="form-control") }}<br>
+        {% for error in form.source.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        <p>
+        {{ form.category.label }}<br>
+        {{ form.category(class="form-control" id="classSelect") }}<br>
+        {% for error in form.category.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+        </p>
+        {{message}}
+        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    </form>
+{% endblock %}
