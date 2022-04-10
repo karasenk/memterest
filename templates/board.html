@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="yellowblock" style="position:absolute;top:90px;left:20%;z-index: -1;">
     <h1>Новая доска</h1>
     <form action="" method="post">
         {{ form.hidden_tag() }}
@@ -34,4 +35,6 @@
         {{message}}
         <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     </form>
+</div>
 {% endblock %}
+
