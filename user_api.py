@@ -2,6 +2,7 @@ from flask import Blueprint, render_template
 from forms.user import LoginForm
 from data.db_session import create_session
 from data.user import User
+from flask_login import login_user
 
 
 blueprint = Blueprint(
@@ -29,5 +30,6 @@ def login_post():
             return render_template('login.html', form=form, title='Авторизация', message='Пользователь не найден')
         if not User.check_password(user, form.password.data):
             return render_template('login.html', form=form, title='Авторизация', message='Неверный пароль')
+        login_user(user, remember=form.remember_me.data)
         return 'Successfully'
     return render_template('login.html', form=form, title='Авторизация')

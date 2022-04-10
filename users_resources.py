@@ -32,21 +32,22 @@ class UsersListResource(Resource):
                 return render_template('register.html', title='Регистрация',
                                        form=form,
                                        message="В юзернейме не должны использоваться пробелы")
-            f = open(f'static/img/{form.username.data}_photo.jpg', 'wb')
-            f.write(form.photo.data.read())
-            f.close()
-            user = User(
-                firstname=form.firstname.data,
-                lastname=form.lastname.data,
-                username=form.username.data,
-                photo_filename=f'static/img/{form.username.data}_photo',
-                email=form.email.data,
-                about=form.about.data
+        fname = f'static/img/{form.username.data}_photo.jpg'
+        f = open(fname, 'wb')
+        f.write(form.photo.data.read())
+        f.close()
+        user = User(
+            firstname=form.firstname.data,
+            lastname=form.lastname.data,
+            username=form.username.data,
+            photo_filename=fname,
+            email=form.email.data,
+            about=form.about.data
 
-            )
-            user.set_password(form.password.data)
-            db_sess.add(user)
-            db_sess.commit()
+        )
+        user.set_password(form.password.data)
+        db_sess.add(user)
+        db_sess.commit()
         text = '''Добро пожаловать в Мемтерест!\nВы успешно зарегистрировались на нашем сайте и теперь можете:
         - создавать доски и сохранять на них мемы и анекдоты
         - загружать на сайт мемы и анекдоты

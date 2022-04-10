@@ -1,4 +1,5 @@
 from flask_restful import Resource
+from flask_login import current_user
 from forms.board import BoardForm
 from flask import render_template, make_response, redirect
 from data.db_session import create_session
@@ -27,7 +28,8 @@ class BoardListResource(Resource):
                                                  title='Создание доски', message='\n'.join(message)))
         board = Board(name=form.title.data,
                       description=form.description.data,
-                      collaborators=form.collaborators.data)
+                      collaborators=form.collaborators.data,
+                      author_username=current_user.username)
         db_sess.add(board)
         db_sess.commit()
         return make_response(redirect('/'))

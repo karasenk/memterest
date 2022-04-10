@@ -9,7 +9,8 @@ class Pin(SqlAlchemyBase, SerializerMixin):
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
-    path = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    author_username = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    mem_filename = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     title = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     alt = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     source = sqlalchemy.Column(sqlalchemy.String, nullable=True)

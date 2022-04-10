@@ -23,18 +23,18 @@
             {% endfor %}
         </p>
         <p>
-        {{ form.photo.label }}<br>
-        {{ form.photo(type="file" class="form-control-file" id="photo") }}<br>
-        {% for error in form.photo.errors %}
+        {{ form.mem.label }}<br>
+        {{ form.mem(type="file") }}<br>
+        {% for error in form.mem.errors %}
             <p class="alert alert-danger" role="alert">
                 {{ error }}
             </p>
         {% endfor %}
         </p>
         <p>
-        {{ form.board.label }}<br>
-        {{ form.board(class="form-control" id="classSelect") }}<br>
-        {% for error in form.board.errors %}
+        {{ form.boards.label }}<br>
+        {{ form.boards(class="form-control") }}<br>
+        {% for error in form.boards.errors %}
             <p class="alert alert-danger" role="alert">
                 {{ error }}
             </p>
@@ -47,9 +47,10 @@
             <p class="alert alert-danger" role="alert">
                 {{ error }}
             </p>
+        {% endfor %}
         <p>
         {{ form.category.label }}<br>
-        {{ form.category(class="form-control" id="classSelect") }}<br>
+        {{ form.category(class="form-control") }}<br>
         {% for error in form.category.errors %}
             <p class="alert alert-danger" role="alert">
                 {{ error }}
