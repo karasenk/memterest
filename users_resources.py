@@ -10,7 +10,7 @@ class UsersListResource(Resource):
     def get(self):
         form = RegisterForm()
         return make_response(render_template('register.html',
-                                             form=form, title='Регистрация', current_user = None))
+                                             form=form, title='Регистрация', current_user=None))
 
     def post(self):
         form = RegisterForm()
@@ -18,16 +18,16 @@ class UsersListResource(Resource):
             if form.password.data != form.password_again.data:
                 return render_template('register.html', title='Регистрация',
                                        form=form,
-                                       message="Пароли не совпадают")
+                                       message="Пароли не совпадают", current_user=None)
             db_sess = create_session()
             if db_sess.query(User).filter(User.email == form.email.data).first():
                 return render_template('register.html', title='Регистрация',
                                        form=form,
-                                       message="Пользователь с такой почтой уже есть")
+                                       message="Пользователь с такой почтой уже есть", current_user=None)
             if db_sess.query(User).filter(User.username == form.username.data).first():
                 return render_template('register.html', title='Регистрация',
                                        form=form,
-                                       message="Юзернейм уже занят")
+                                       message="Юзернейм уже занят", current_user=None)
             f = open(f'static/img/{form.username.data}_photo.jpg', 'wb')
             f.write(form.photo.data.read())
             f.close()
