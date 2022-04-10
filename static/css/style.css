@@ -93,7 +93,7 @@ input[type=submit] {
     border: 0px;
 }
 
-input, textarea  {
+input, textarea, select  {
     width: 95%;
     font-size: 100%;
     background-color: #FFFFFF;
@@ -105,7 +105,7 @@ input, textarea  {
     border: 0px;
 }
 
-input:focus, textarea:focus {
+input:focus, textarea:focus, select:focus {
   outline: none;
   background-color: #FFFAF5;
 }
@@ -150,4 +150,14 @@ input[type=file] {
     margin-right:10px;
     border-radius: 5%;
     border: 0px;
+}
+
+select {
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    appearance:none;
+    background-image: url("../img/arrow.png");
+    background-repeat: no-repeat;
+    background-size: 5% 80%;
+    background-position-x: 99%;
 }
