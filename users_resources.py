@@ -10,7 +10,7 @@ class UsersListResource(Resource):
     def get(self):
         form = RegisterForm()
         return make_response(render_template('register.html',
-                                             form=form, title='Регистрация'))
+                                             form=form, title='Регистрация', current_user = None))
 
     def post(self):
         form = RegisterForm()
@@ -35,14 +35,13 @@ class UsersListResource(Resource):
                 firstname=form.firstname.data,
                 lastname=form.lastname.data,
                 username=form.username.data,
-                photo_filename=f'static/img/{form.username.data}_photo',
+                photo_filename=f'../static/img/{form.username.data}_photo',
                 email=form.email.data,
                 about=form.about.data
-
             )
             user.set_password(form.password.data)
-            '''db_sess.add(user)
-            db_sess.commit()'''
+            db_sess.add(user)
+            db_sess.commit()
         text = '''Добро пожаловать в Мемтерест!\nВы успешно зарегистрировались на нашем сайте и теперь можете:
         - создавать доски и сохранять на них мемы и анекдоты
         - загружать на сайт мемы и анекдоты

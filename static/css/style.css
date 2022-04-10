@@ -1,11 +1,14 @@
-/* Regular Weight */
+html * {
+    font-family: Bahnschrift;
+}
+
+
 @font-face {
     font-family: Bahnschrift;
     src: url("../fonts/bahnschrift-Regular.ttf");
 }
 
 h1 {
-    font-family: Bahnschrift;
     font-weight: 300;
     font-size: 40px;
 }
@@ -27,13 +30,21 @@ header {
     font-size: 350%;
     margin-top: 9px;
     margin-left: 12px;
-    font-family: Bahnschrift;
     font-weight: 600;
     color: #EA272C;
     float: left;
 }
 .avatar {
-    margin-top:13px;
+    margin: 14px;
+    float: right;
+}
+.redbtn {
+    font-size: 125%;
+    background-color: #EA272C;
+    color: #FDE6D1;
+    padding: 13px;
+    margin-top:14px;
     margin-right:15px;
     float: right;
+    border-radius: 5%;
 }
