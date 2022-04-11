@@ -13,7 +13,7 @@
                                 {% else %}"/user/{{ current_user.id }}"
                                 {% endif %}>
         <img src={% if current_user == None or not current_user.photo_filename %}"../static/img/defaultavatar.png"
-                 {% else %}"{{ current_user.photo_filename }}"
+                 {% else %}"../{{ current_user.photo_filename }}.jpg"
                  {% endif %}
              style="width:50px;height:auto;border-radius: 100%;">
         </a>
