@@ -49,7 +49,10 @@ header {
     float: right;
 }
 
-
+a {
+  outline: none;
+  text-decoration: none;
+}
 
 /* основные элементы */
 .redbtn, ::-webkit-file-upload-button, input[type=submit] {
