@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect
 from data.db_session import create_session
 from data.pin import Pin
-from flask_login import login_user
+from flask_login import current_user, mixins
 
 
 blueprint = Blueprint(
@@ -10,8 +10,11 @@ blueprint = Blueprint(
     template_folder='templates')
 
 
-@blueprint.route('/pins')
+@blueprint.route('/')
 def print_pins():
+    curus = current_user
+    if curus.__class__ == mixins.AnonymousUserMixin:
+        curus = None
     db_sess = create_session()
     pins = db_sess.query(Pin).order_by(Pin.id.desc()).limit(9)
     pins1 = []
@@ -19,5 +22,5 @@ def print_pins():
         pins1.append({'mem': f'static/img/mem{pin.id}.jpg',
                       'alt': pin.alt,
                       'id': pin.id})
-    return render_template('pins.html', title='Все мемы', pins=pins)
+    return render_template('pins.html', title='Все мемы', pins=pins, current_user=curus)
 

@@ -30,14 +30,6 @@ def load_user(user_id):
     return db_sess.query(User).get(user_id)
 
 
-@app.route('/')
-def base():
-    curus = current_user
-    if curus.__class__ == mixins.AnonymousUserMixin:
-        curus = None
-    return render_template('base.html', title='Мемтерест', current_user=curus)
-
-
 if __name__ == '__main__':
     global_init("db/memterest.db")
     app.run(port=8080, host='127.0.0.1')
