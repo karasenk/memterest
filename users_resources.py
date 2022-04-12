@@ -16,32 +16,32 @@ class UsersListResource(Resource):
         form = RegisterForm()
         if form.validate_on_submit():
             if form.password.data != form.password_again.data:
-                return render_template('register.html', title='Регистрация',
-                                       form=form,
-                                       message="Пароли не совпадают", current_user=None)
+                return make_response(render_template('register.html',
+                                                     form=form, title='Регистрация', current_user=None,
+                                                     message="Пароли не совпадают"))
             db_sess = create_session()
             if db_sess.query(User).filter(User.email == form.email.data).first():
-                return render_template('register.html', title='Регистрация',
-                                       form=form,
-                                       message="Пользователь с такой почтой уже есть", current_user=None)
+                return make_response(render_template('register.html',
+                                                     form=form, title='Регистрация', current_user=None,
+                                                     message="Пользователь с такой почтой уже есть"))
             if db_sess.query(User).filter(User.username == form.username.data).first():
-                return render_template('register.html', title='Регистрация',
-                                       form=form,
-                                       message="Юзернейм уже занят")
-            if len(form.username.data.split()) > 1:
-                return render_template('register.html', title='Регистрация',
-                                       form=form,
-                                       message="В юзернейме не должны использоваться пробелы")
+                return make_response(render_template('register.html',
+                                                     form=form, title='Регистрация', current_user=None,
+                                                     message="Юзернейм уже занят"))
+            if ' ' in form.username.data.strip():
+                return make_response(render_template('register.html',
+                                                     form=form, title='Регистрация', current_user=None,
+                                                     message="В юзернейме не должны использоваться пробелы"))
             fname = f'static/img/{form.username.data}_photo'
             f = open(fname, 'wb')
             f.write(form.photo.data.read())
             f.close()
             user = User(
-                firstname=form.firstname.data,
-                lastname=form.lastname.data,
-                username=form.username.data,
+                firstname=form.firstname.data.strip(),
+                lastname=form.lastname.data.strip(),
+                username=form.username.data.strip(),
                 photo_filename=fname,
-                email=form.email.data,
+                email=form.email.data.strip(),
                 about=form.about.data
             )
             user.set_password(form.password.data)

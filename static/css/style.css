@@ -15,7 +15,7 @@ h1 {
     color: #B11D30;
 }
 
-p {
+p, .errmessage {
     padding-left: 8px;
     color: #B11D30;
 }
@@ -83,6 +83,12 @@ header {
     border-radius: 1%;
     width: 30%;
     font-size: 20px;
+}
+
+.errmessage {
+    background-color: #F8B8A9;
+    padding: 10px;
+    border-radius: 2%;
 }
 /* конец основных элементов */
 
