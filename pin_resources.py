@@ -37,7 +37,7 @@ class PinListResource(Resource):
         pin.title = form.title.data
         pin.mem_filename = fname
         pin.alt = form.alt.data
-        pin.author_username = current_user.username
+        pin.user_id = current_user.id
         pin.categories.append(category)
         pin.source = form.source.data
         pin.boards.append(board)
