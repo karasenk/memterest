@@ -4,6 +4,8 @@ from flask import render_template, make_response, redirect
 from data.db_session import create_session
 from data.user import User
 from message import send_message
+from PIL import Image
+import io
 
 
 class UsersListResource(Resource):
@@ -32,10 +34,14 @@ class UsersListResource(Resource):
                 return make_response(render_template('register.html',
                                                      form=form, title='Регистрация', current_user=None,
                                                      message="В юзернейме не должны использоваться пробелы"))
-            fname = f'static/img/{form.username.data}_photo'
-            f = open(fname, 'wb')
-            f.write(form.photo.data.read())
-            f.close()
+
+            if form.photo.data:
+                im = Image.open(io.BytesIO(form.photo.data.read()))
+                sz = min(im.height, im.width)
+                im.crop((0, 0, sz, sz)).save(f'static/img/{form.username.data}_photo.jpg', quality=100)
+                fname = f'static/img/{form.username.data}_photo.jpg'
+            else:
+                fname = f'static/img/defaultavatar.png'
             user = User(
                 firstname=form.firstname.data.strip(),
                 lastname=form.lastname.data.strip(),

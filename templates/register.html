@@ -40,6 +40,7 @@
                 {{ error }}
             </p>
         {% endfor %}
+    <div class="alertmessage">Обратите внимание: картинки обрезаются до квадратных</div>
     </p>
     <p>
         {{ form.email.label }}<br>
@@ -77,7 +78,7 @@
             </p>
         {% endfor %}
     </p>
-    <div class="errmessage">{{message}}</div>
+    {% if message %}<div class="errmessage">{{message}}</div>{% endif %}
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
 </form>
 </div>

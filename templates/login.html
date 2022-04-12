@@ -24,7 +24,7 @@
             {% endfor %}
         </p>
         <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-        <div class="errmessage">{{ message }}</div>
+        {% if message %}<div class="errmessage">{{message}}</div>{% endif %}
         <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     </form>
 </div>
