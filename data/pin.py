@@ -16,7 +16,7 @@ class Pin(SqlAlchemyBase, SerializerMixin):
     source = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     categories = orm.relation("Category",
                               secondary="pin_category_association",
-                              backref="pins")
+                              backref="pin")
     boards = orm.relation("Board",
                           secondary="pin_board_association",
-                          backref="pins")
+                          backref="pin")

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% for pin in pins %}
+    <div class="gallery">
+        <a href="/pin/{{pin['id']}}">
+        <img src="{{pin['mem']}}" alt="{{pin['alt']}}" width="600" height="400">
+        </a>
+    </div>
+    {% endfor %}
+{% endblock %}

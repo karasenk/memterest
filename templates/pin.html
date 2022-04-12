@@ -3,7 +3,7 @@
 {% block content %}
 <div class="yellowblock" style="position:absolute;top:90px;left:20%;z-index: -1;">
     <h1>Добавление мема</h1>
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <p>
             {{ form.title.label }}<br>

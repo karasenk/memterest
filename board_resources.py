@@ -33,7 +33,7 @@ class BoardListResource(Resource):
         board = Board(name=form.title.data,
                       description=form.description.data,
                       collaborators=form.collaborators.data,
-                      author_username=current_user.username)
+                      user_id=current_user.id)
         db_sess.add(board)
         db_sess.commit()
         return make_response(redirect('/'))
