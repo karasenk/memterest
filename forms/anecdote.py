@@ -1,11 +1,11 @@
 from wtforms.validators import DataRequired, InputRequired
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, FileField, SelectField
+from wtforms import StringField, SubmitField, TextAreaField, SelectField
 
 
 class AnecdoteForm(FlaskForm):
     title = StringField('Название', validators=[DataRequired()])
-    anecdote = FileField('Анекдот', validators=[DataRequired()])
+    anecdote = TextAreaField('Анекдот', validators=[DataRequired()])
     source = StringField('Источник')
     boards = SelectField('Доски', validators=[DataRequired(), InputRequired()])
     category = SelectField('Категория', validators=[DataRequired()],

@@ -29,4 +29,3 @@ def print_pins():
                       'author': db_sess.query(User).filter(User.id == pin.user_id)[0]
                       })
     return render_template('pins.html', title='Все мемы', pins=pins1, current_user=curus)
-

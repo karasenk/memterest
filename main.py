@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from flask_login import LoginManager, current_user, mixins
 from flask_restful import Api
 
+import anecdote_api
 import pin_api
 import pin_resources
 import users_resources
@@ -22,6 +23,7 @@ api.add_resource(board_resources.BoardListResource, '/new_board')
 api.add_resource(pin_resources.PinListResource, '/new_pin')
 app.register_blueprint(user_api.blueprint)
 app.register_blueprint(pin_api.blueprint)
+app.register_blueprint(anecdote_api.blueprint)
 
 
 @login_manager.user_loader

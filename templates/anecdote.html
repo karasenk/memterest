@@ -15,7 +15,7 @@
         </p>
         <p>
         {{ form.anecdote.label }}<br>
-        {{ form.anecdote(type="file" class="form-control-file") }}<br>
+        {{ form.anecdote(class="form-control") }}<br>
         {% for error in form.anecdote.errors %}
             <p class="alert alert-danger" role="alert">
                 {{ error }}
@@ -23,9 +23,9 @@
         {% endfor %}
         </p>
         <p>
-        {{ form.board.label }}<br>
-        {{ form.board(class="form-control" id="classSelect") }}<br>
-        {% for error in form.board.errors %}
+        {{ form.boards.label }}<br>
+        {{ form.boards(class="form-control") }}<br>
+        {% for error in form.boards.errors %}
             <p class="alert alert-danger" role="alert">
                 {{ error }}
             </p>
@@ -38,9 +38,10 @@
             <p class="alert alert-danger" role="alert">
                 {{ error }}
             </p>
+        {% endfor %}
         <p>
         {{ form.category.label }}<br>
-        {{ form.category(class="form-control" id="classSelect") }}<br>
+        {{ form.category(class="form-control") }}<br>
         {% for error in form.category.errors %}
             <p class="alert alert-danger" role="alert">
                 {{ error }}
