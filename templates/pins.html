@@ -13,6 +13,17 @@
     </div>
     {% endif %}
 {% endfor %}
+    {% for anec in anecs %}
+    {% if loop.index%3==0 %}
+    <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
+        <a href="/anec/{{anec.id}}">
+        <p> {{anec.text}} </p>
+            <h1>{{ anec.title }}</h1>
+        </a>
+        <a href="/user/{{ anec.author.id }}"><p>{{ anec.author.username }}</p></a>
+    </div>
+    {% endif %}
+{% endfor %}
 </div>
 
 <div style="position:absolute;top:90px;left:35%;z-index: -1;width:30%;">
@@ -24,6 +35,17 @@
             <h1>{{ pin.title }}</h1>
         </a>
         <a href="/user/{{ pin.author.id }}"><p>{{ pin.author.username }}</p></a>
+    </div>
+    {% endif %}
+{% endfor %}
+    {% for anec in anecs %}
+    {% if loop.index%3==1 %}
+    <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
+        <a href="/anec/{{anec.id}}">
+        <p> {{anec.text}} </p>
+            <h1>{{ anec.title }}</h1>
+        </a>
+        <a href="/user/{{ anec.author.id }}"><p>{{ anec.author.username }}</p></a>
     </div>
     {% endif %}
 {% endfor %}
@@ -41,5 +63,17 @@
     </div>
     {% endif %}
 {% endfor %}
+{% for anec in anecs %}
+    {% if loop.index%3==2 %}
+    <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
+        <a href="/anec/{{anec.id}}">
+        <p> {{anec.text}} </p>
+            <h1>{{ anec.title }}</h1>
+        </a>
+        <a href="/user/{{ anec.author.id }}"><p>{{ anec.author.username }}</p></a>
+    </div>
+    {% endif %}
+{% endfor %}
 </div>
+
 {% endblock %}

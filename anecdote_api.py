@@ -34,6 +34,7 @@ def post_anecdote():
     anec.title = form.title.data
     anec.text = form.anecdote.data
     anec.source = form.source.data
+    anec.user_id = current_user.id
     anec.categories.append(category)
     anec.boards.append(board)
     db_sess.add(anec)
