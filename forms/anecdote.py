@@ -10,5 +10,6 @@ class AnecdoteForm(FlaskForm):
     boards = SelectField('Доски', validators=[DataRequired(), InputRequired()])
     category = SelectField('Категория', validators=[DataRequired()],
                            choices=['про котиков', 'про собачек', 'про программистов',
-                                    'про художников', 'про химиков', 'не определено'])
+                                    'про художников', 'про химиков', 'про Штирлица',
+                                    'про наркоманов', 'не определено'])
     submit = SubmitField('Сохранить')

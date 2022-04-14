@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect
 from data.db_session import create_session
 from data.anecdote import Anecdote
 from data.board import Board
+from data.user import User
 from data.category import Category
 from forms.anecdote import AnecdoteForm
 from flask_login import current_user, mixins
@@ -40,3 +41,11 @@ def post_anecdote():
     db_sess.add(anec)
     db_sess.commit()
     return redirect('/')
+
+
+@blueprint.route('/anec/<int:anec_id>')
+def print_anecdote(anec_id):
+    db_sess = create_session()
+    anec = db_sess.query(Anecdote).filter(Anecdote.id == anec_id)[0]
+    username = db_sess.query(User.username).filter(User.id == anec.user_id)[0][0]
+    return render_template('print_anecdote.html', anec=anec, username=username, title=anec.title)

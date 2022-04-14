@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>{{ anec.title }}</h1>
+<div>
+    {{ anec.text }}
+</div>
+
+<div>
+    <a href="/user/{{ anec.user_id }}">
+        <p>Автор - {{ username }}</p>
+    </a>
+    <a href="{{ anec.source }}">
+        {% if anec.source == '' %}
+            <p>Источник - не указан</p>
+        {% else %}
+            <p>Источник - {{anec.source}}</p>
+        {% endif %}
+    </a>
+</div>
+
+{% endblock %}
