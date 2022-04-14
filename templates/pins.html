@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 
+{% block info %}
+{% endblock %}
 <div style="position:absolute;top:90px;left:3%;z-index: -1;width:30%;">
 {% for pin in pins %}
     {% if loop.index%3==0 %}

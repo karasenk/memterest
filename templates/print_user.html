@@ -10,7 +10,7 @@
 <div>
     <h3> Доски </h3>
     {% for board in user.boards %}
-        <a href="/boards/{{board.id}}">
+        <a href="/board/{{board.id}}">
             <p> {{board.name}} </p>
         </a>
     {% endfor %}

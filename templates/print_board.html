@@ -1,0 +1,20 @@
+{% extends "pins.html" %}
+{% block info %}
+
+<h1> {{board.name}} </h1>
+<div>
+    <p>Описание: {{board.description}}</p>
+</div>
+<div>
+    <a href="/user/{{board.user.id}}">
+        <p>Автор: {{board.user.username}}</p>
+    </a>
+    <p>Соавторы:</p>
+    {% for user in collaborators %}
+        <a href="/user/{{user.id}}">
+            <p> user.username</p>
+        </a>
+    {% endfor %}
+</div>
+
+{% endblock %}
