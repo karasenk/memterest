@@ -48,4 +48,14 @@ def print_anecdote(anec_id):
     db_sess = create_session()
     anec = db_sess.query(Anecdote).filter(Anecdote.id == anec_id)[0]
     username = db_sess.query(User.username).filter(User.id == anec.user_id)[0][0]
-    return render_template('print_anecdote.html', anec=anec, username=username, title=anec.title)
+    return render_template('print_anecdote.html', anec=anec, username=username,
+                           current_user=current_user, title=anec.title)
+
+
+@blueprint.route('/delete_anec/<int:anec_id>')
+def delete_anec(anec_id):
+    db_sess = create_session()
+    anec = db_sess.query(Anecdote).filter(Anecdote.id == anec_id)[0]
+    db_sess.delete(anec)
+    db_sess.commit()
+    return redirect('/')

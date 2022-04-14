@@ -17,6 +17,11 @@
             <p>Источник - {{anec.source}}</p>
         {% endif %}
     </a>
+    {% if current_user.id == anec.user_id %}
+        <a href="/delete_anec/{{anec.id}}">
+            <div class="redbtn">Удалить анекдот</div>
+        </a>
+    {% endif %}
 </div>
 
 {% endblock %}
