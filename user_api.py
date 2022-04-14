@@ -35,3 +35,10 @@ def login_post():
         login_user(user, remember=form.remember_me.data)
         return redirect('/')
     return render_template('login.html', form=form, title='Авторизация', current_user=None)
+
+
+@blueprint.route('/user/<int:user_id>')
+def get_user_page(user_id):
+    db_sess = create_session()
+    user = db_sess.query(User).filter(User.id == user_id)[0]
+    return render_template('print_user.html', title=user.username, user=user)

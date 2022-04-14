@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1> {{user.firstname}} {{user.lastname}}</h1>
+<h3> {{user.username}} </h3>
+<div>
+    <img src="../{{user.photo_filename}}">
+    <p>О себе: {{user.about}} </p>
+</div>
+<div>
+    <h3> Доски </h3>
+    {% for board in user.boards %}
+        <a href="/boards/{{board.id}}">
+            <p> {{board.name}} </p>
+        </a>
+    {% endfor %}
+</div>
+
+{% endblock %}
