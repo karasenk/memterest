@@ -38,3 +38,21 @@ def print_mems_and_anecs():
                        'author': db_sess.query(User).filter(User.id == anec.user_id)[0]
                        })
     return render_template('pins.html', title='Главная страница', pins=pins1, anecs=anecs1, current_user=curus)
+
+
+@blueprint.route('/pin/<int:mem_id>')
+def print_mem(mem_id):
+    db_sess = create_session()
+    mem = db_sess.query(Pin).filter(Pin.id == mem_id)[0]
+    username = db_sess.query(User.username).filter(User.id == mem.user_id)[0][0]
+    return render_template('print_pin.html', mem=mem, username=username,
+                           current_user=current_user, title=mem.title)
+
+
+@blueprint.route('/delete_mem/<int:mem_id>')
+def delete_mem(mem_id):
+    db_sess = create_session()
+    mem = db_sess.query(Pin).filter(Pin.id == mem_id)[0]
+    db_sess.delete(mem)
+    db_sess.commit()
+    return redirect('/')

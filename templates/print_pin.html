@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>{{ mem.title }}</h1>
+<div>
+    <img src="../{{ mem.mem_filename }}">
+</div>
+
+<div>
+    <a href="/user/{{ mem.user_id }}">
+        <p>Автор - {{ username }}</p>
+    </a>
+    <a href="{{ mem.source }}">
+        {% if mem.source == '' %}
+            <p>Источник - не указан</p>
+        {% else %}
+            <p>Источник - {{mem.source}}</p>
+        {% endif %}
+    </a>
+    {% if current_user.id == mem.user_id %}
+        <a href="/delete_mem/{{mem.id}}">
+            <div class="redbtn">Удалить мем</div>
+        </a>
+    {% endif %}
+</div>
+
+{% endblock %}
