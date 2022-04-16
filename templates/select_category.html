@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Выберите категорию</h1>
+<form class="form-control" method="post">
+  <select name="category">
+      {% for cat in categories %}
+        <option value="{{cat.id}}">{{cat.name}}</option>
+      {% endfor %}
+  </select>
+  <button type="submit">Показать</button>
+</form>
+
+{% endblock %}

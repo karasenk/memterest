@@ -3,6 +3,7 @@ from flask_login import LoginManager, current_user, mixins
 from flask_restful import Api
 import board_api
 import anecdote_api
+import category_api
 import pin_api
 import pin_resources
 import users_resources
@@ -25,6 +26,7 @@ app.register_blueprint(user_api.blueprint)
 app.register_blueprint(pin_api.blueprint)
 app.register_blueprint(anecdote_api.blueprint)
 app.register_blueprint(board_api.blueprint)
+app.register_blueprint(category_api.blueprint)
 
 
 @login_manager.user_loader

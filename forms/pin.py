@@ -10,6 +10,7 @@ class PinForm(FlaskForm):
     source = StringField('Источник')
     boards = SelectField('Доски', validators=[DataRequired()])
     category = SelectField('Категория', validators=[DataRequired()],
-                           choices=['про котиков', 'про собачек', 'про программистов',
-                                    'про художников', 'про химиков', 'не определено'])
+                           choices=['не определено', 'про котиков', 'про собачек',
+                                    'про программистов', 'про художников', 'про химиков',
+                                    'про наркоманов', 'про Штирлица'])
     submit = SubmitField('Сохранить')
