@@ -1,11 +1,12 @@
 import datetime
 
-from flask import Blueprint, render_template, redirect
+from flask import Blueprint, render_template, redirect, request
 from data.db_session import create_session
 from data.pin import Pin
 from data.anecdote import Anecdote
 from data.user import User
 from data.category import Category
+from data.board import Board
 from flask_login import current_user, mixins
 
 
@@ -66,13 +67,22 @@ def print_mems_and_anecs(cat_id=0):
     return render_template('pins.html', title=title, pins=pins1, anecs=anecs1, current_user=curus)
 
 
-@blueprint.route('/pin/<int:mem_id>')
+@blueprint.route('/pin/<int:mem_id>', methods=['GET', 'POST'])
 def print_mem(mem_id):
     db_sess = create_session()
     mem = db_sess.query(Pin).filter(Pin.id == mem_id)[0]
     username = db_sess.query(User.username).filter(User.id == mem.user_id)[0][0]
+    boards = []
+    for board in db_sess.query(Board).all():
+        if board.user_id == current_user.id or \
+                current_user.username in board.collaborators.split():
+            boards.append(board)
+    if request.method == 'POST':
+        board = db_sess.query(Board).filter(Board.id == int(request.form['board']))[0]
+        mem.boards.append(board)
+        db_sess.commit()
     return render_template('print_pin.html', mem=mem, username=username,
-                           current_user=current_user, title=mem.title)
+                           current_user=current_user, title=mem.title, boards=boards)
 
 
 @blueprint.route('/delete_mem/<int:mem_id>')

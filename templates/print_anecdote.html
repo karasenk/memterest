@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 
+<form method="post">
+    <select name="board">
+        {% for board in boards %}
+        <option value="{{board.id}}">{{board.name}}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Сохранить</button>
+</form>
+
 <h1>{{ anec.title }}</h1>
 <div>
     {{ anec.text }}

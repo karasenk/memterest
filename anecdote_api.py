@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect
+from flask import Blueprint, render_template, redirect, request
 from data.db_session import create_session
 from data.anecdote import Anecdote
 from data.board import Board
@@ -43,13 +43,22 @@ def post_anecdote():
     return redirect('/')
 
 
-@blueprint.route('/anec/<int:anec_id>')
+@blueprint.route('/anec/<int:anec_id>', methods=['GET', 'POST'])
 def print_anecdote(anec_id):
     db_sess = create_session()
     anec = db_sess.query(Anecdote).filter(Anecdote.id == anec_id)[0]
     username = db_sess.query(User.username).filter(User.id == anec.user_id)[0][0]
+    boards = []
+    for board in db_sess.query(Board).all():
+        if board.user_id == current_user.id or \
+                current_user.username in board.collaborators.split():
+            boards.append(board)
+    if request.method == 'POST':
+        board = db_sess.query(Board).filter(Board.id == int(request.form['board']))[0]
+        anec.boards.append(board)
+        db_sess.commit()
     return render_template('print_anecdote.html', anec=anec, username=username,
-                           current_user=current_user, title=anec.title)
+                           current_user=current_user, title=anec.title, boards=boards)
 
 
 @blueprint.route('/delete_anec/<int:anec_id>')

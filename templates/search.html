@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Поиск</h1>
+<p>Введите название/описание мема или название/часть анекдота</p>
+<form class="form-control" method="post">
+    <input type="text" name="to_find">
+    <button type="submit">Найти</button>
+</form>
+
+{% endblock %}
