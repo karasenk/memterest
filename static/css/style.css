@@ -55,7 +55,8 @@ a {
 }
 
 /* основные элементы */
-.redbtn, ::-webkit-file-upload-button, input[type=submit] {
+.redbtn, ::-webkit-file-upload-button, input[type=submit], button {
+    border: 0px;
     font-size: 125%;
     background-color: #EA272C;
     color: #FDE6D1;
@@ -100,7 +101,7 @@ a {
 
 
 /* инпуты */
-input[type=submit] {
+input[type=submit], button[type=submit] {
     font-size: 100%;
     padding: 8px;
     margin-top:5px;

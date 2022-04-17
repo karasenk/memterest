@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 
+<div class="yellowblock" style="position:relative;left:20%;top:30px">
 <h1>Поиск</h1>
 <p>Введите название/описание мема или название/часть анекдота</p>
 <form class="form-control" method="post">
-    <input type="text" name="to_find">
-    <button type="submit">Найти</button>
+    <p><input type="text" name="to_find"></p>
+    <p><button type="submit">Найти</button></p>
 </form>
+</div>
 
 {% endblock %}
