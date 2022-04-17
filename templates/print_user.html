@@ -4,7 +4,7 @@
 
 
 <div style="position:relative;top:60px;left:7%;z-index: -1;">
-    <img src={% if current_user == None or not user.photo_filename %}"../static/img/defaultavatar.png"
+    <img src={% if not user.photo_filename %}"../static/img/defaultavatar.png"
              {% else %}"../{{ user.photo_filename }}"
              {% endif %} style="overflow:hidden;width:11%;height:11%;border-radius: 100%;">
 </div>
@@ -14,7 +14,7 @@
     <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
         <h1> <span style="color:#D57B7C;font-size:75%">{{user.username}}</span>
             <br> {{user.firstname}} {{user.lastname}} </h1>
-        <p> О себе: {{user.about}} </p>
+        <p> {{user.about}} </p>
     </div>
     <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
         <h3> Доски </h3>

@@ -22,7 +22,8 @@ def print_board(board_id):
     for pin in pins0:
         for b in pin.boards:
             if b.id == board.id:
-                pins.append({'mem': f'static/img/mem{pin.id}.jpg',
+                pins.append({'type': 'mem',
+                             'mem': f'static/img/mem{pin.id}.jpg',
                              'alt': pin.alt,
                              'id': pin.id,
                              'title': pin.title,
@@ -34,11 +35,13 @@ def print_board(board_id):
     for anec in anecs0:
         for b in anec.boards:
             if b.id == board.id:
-                anecs.append({'text': anec.text,
+                anecs.append({'type': 'anec',
+                              'text': anec.text,
                               'id': anec.id,
                               'title': anec.title,
                               'author': db_sess.query(User).filter(User.id == anec.user_id)[0]
                               })
                 break
-    return render_template('print_board.html', pins=pins, anecs=anecs,
+    posts = anecs + pins
+    return render_template('print_board.html', posts=posts,
                            title=board.name, collaborators=collaborators, board=board)

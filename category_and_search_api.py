@@ -38,7 +38,8 @@ def search():
     to_find = request.form['to_find'].lower()
     for pin in db_sess.query(Pin).all():
         if to_find in pin.title.lower() or to_find in pin.alt.lower():
-            mems.append({'mem': f'static/img/mem{pin.id}.jpg',
+            mems.append({'type': 'mem',
+                         'mem': f'static/img/mem{pin.id}.jpg',
                          'alt': pin.alt,
                          'id': pin.id,
                          'title': pin.title,
@@ -46,9 +47,11 @@ def search():
                          })
     for anec in db_sess.query(Anecdote).all():
         if to_find in anec.title.lower() or to_find in anec.text.lower():
-            anecs.append({'text': anec.text,
+            anecs.append({'type': 'anec',
+                          'text': anec.text,
                           'id': anec.id,
                           'title': anec.title,
                           'author': db_sess.query(User).filter(User.id == anec.user_id)[0]
                           })
-    return render_template('pins.html', title='Результаты поиска', anecs=anecs, pins=mems, current_user=curus)
+    posts = anecs + mems
+    return render_template('pins.html', title='Результаты поиска', posts=posts, current_user=curus)

@@ -66,6 +66,7 @@ a {
 .redbtn, ::-webkit-file-upload-button, input[type=submit], button {
     border: 0px;
     font-size: 125%;
+    color: #FDE6D1;
     background-color: #EA272C;
     color: #FDE6D1;
     padding: 13px;

@@ -36,7 +36,8 @@ def print_mems_and_anecs(cat_id=0):
         for pin in pins:
             for c in pin.categories:
                 if c == cat:
-                    pins1.append({'mem': f'static/img/mem{pin.id}.jpg',
+                    pins1.append({'type': 'mem',
+                                  'mem': f'static/img/mem{pin.id}.jpg',
                                   'alt': pin.alt,
                                   'id': pin.id,
                                   'title': pin.title,
@@ -45,26 +46,30 @@ def print_mems_and_anecs(cat_id=0):
         for anec in anecs:
             for c in anec.categories:
                 if c == cat:
-                    anecs1.append({'text': anec.text,
+                    anecs1.append({'type': 'anec',
+                                   'text': anec.text,
                                    'id': anec.id,
                                    'title': anec.title,
                                    'author': db_sess.query(User).filter(User.id == anec.user_id)[0]
                                    })
     else:
         for pin in pins:
-            pins1.append({'mem': f'static/img/mem{pin.id}.jpg',
+            pins1.append({'type': 'mem',
+                          'mem': f'static/img/mem{pin.id}.jpg',
                           'alt': pin.alt,
                           'id': pin.id,
                           'title': pin.title,
                           'author': db_sess.query(User).filter(User.id == pin.user_id)[0]
                           })
         for anec in anecs:
-            anecs1.append({'text': anec.text,
+            anecs1.append({'type': 'anec',
+                           'text': anec.text,
                            'id': anec.id,
                            'title': anec.title,
                            'author': db_sess.query(User).filter(User.id == anec.user_id)[0]
                            })
-    return render_template('pins.html', title=title, pins=pins1, anecs=anecs1, current_user=curus)
+    posts = pins1 + anecs1
+    return render_template('pins.html', title=title, posts=posts, current_user=curus)
 
 
 @blueprint.route('/pin/<int:mem_id>', methods=['GET', 'POST'])
