@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 
+<div class="yellowblock" style="position:absolute;top:90px;left:20%;z-index: -1;">
+{% if boards %}
 <form method="post">
     <select name="board">
         {% for board in boards %}
@@ -9,10 +11,10 @@
     </select>
     <button type="submit">Сохранить</button>
 </form>
-
+{% endif %}
 <h1>{{ anec.title }}</h1>
 <div>
-    {{ anec.text }}
+    <p>{{ anec.text }}</p>
 </div>
 
 <div>
@@ -31,6 +33,7 @@
             <div class="redbtn">Удалить анекдот</div>
         </a>
     {% endif %}
+</div>
 </div>
 
 {% endblock %}
