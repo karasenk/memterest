@@ -18,12 +18,13 @@
              style="overflow:hidden;width:50px;height:50px;border-radius: 100%;">
         </a>
     </div>
-    {% if current_user == None %}<a href="/register"><div class="redbtn">Регистрация</div></a>
-                                 <a href="/login"><div class="redbtn">Вход</div></a>
-    {% else %}<a href="/new_pin"><div class="redbtn">Добавить мем</div></a>
+    {% if current_user == None %}<a href="/register"><div class="redbtn" style="float:right">Регистрация</div></a>
+                                 <a href="/login"><div class="redbtn" style="float:right">Вход</div></a>
+    {% else %}<a href="/new_pin"><div class="redbtn" style="float:right">Добавить мем</div></a>
+              <a href="/new_anecdote"><div class="redbtn" style="float:right">Добавить анекдот</div></a>
     {% endif %}
-    <a href="/categories"><div class="yelbtn">Категории</div></a>
-    <a href="/search"><div class="yelbtn">Поиск</div></a>
+    <a href="/categories"><div class="yelbtn" style="float:right">Категории</div></a>
+    <a href="/search"><div class="yelbtn" style="float:right">Поиск</div></a>
 </header>
 <body>
 <br><br><br>
