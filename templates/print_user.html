@@ -1,19 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1> {{user.firstname}} {{user.lastname}}</h1>
-<h3> {{user.username}} </h3>
-<div>
-    <img src="../{{user.photo_filename}}">
-    <p>О себе: {{user.about}} </p>
+
+
+<div style="position:relative;top:60px;left:7%;z-index: -1;">
+    <img src={% if current_user == None or not user.photo_filename %}"../static/img/defaultavatar.png"
+             {% else %}"../{{ user.photo_filename }}"
+             {% endif %} style="overflow:hidden;width:11%;height:11%;border-radius: 100%;">
 </div>
-<div>
-    <h3> Доски </h3>
-    {% for board in user.boards %}
-        <a href="/board/{{board.id}}">
-            <p> {{board.name}} </p>
-        </a>
-    {% endfor %}
+
+
+<div style="position:absolute;top:120px;left:20%;z-index: -1;width:28%;">
+    <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
+        <h1> <span style="color:#D57B7C;font-size:75%">{{user.username}}</span>
+            <br> {{user.firstname}} {{user.lastname}} </h1>
+        <p> О себе: {{user.about}} </p>
+    </div>
+    <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
+        <h3> Доски </h3>
+        {% if not user.boards %} <p> У пользователя ещё нет досок </p>
+        {% else %}
+        {% for board in user.boards %}
+            <a href="/board/{{board.id}}">
+                <p> {{board.name}} </p>
+            </a>
+        {% endfor %}
+        {% endif %}
+    </div>
 </div>
 
 {% endblock %}

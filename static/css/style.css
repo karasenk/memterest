@@ -12,6 +12,14 @@ h1 {
     font-weight: 400;
     font-size: 200%;
     padding-left: 30px;
+    padding-bottom: 0px;
+    color: #B11D30;
+}
+h3 {
+    font-weight: 400;
+    font-size: 150%;
+    padding-top: 0px;
+    padding-left: 26px;
     color: #B11D30;
 }
 
