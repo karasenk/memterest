@@ -74,10 +74,6 @@ a {
     border-radius: 5%;
 }
 
-.redbtn {
-    float: right;
-}
-
 .yelbtn {
     font-size: 125%;
     background-color: #FDE6D1;
@@ -85,7 +81,6 @@ a {
     padding: 13px;
     margin-top:14px;
     margin-right:15px;
-    float: right;
     border-radius: 5%;
 }
 

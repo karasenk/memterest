@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="yellowblock" style="position:absolute;top:90px;left:20%;z-index: -1;">
     <h1>Добавление анекдота</h1>
     <form action="" method="post">
         {{ form.hidden_tag() }}
@@ -14,13 +15,13 @@
             {% endfor %}
         </p>
         <p>
-        {{ form.anecdote.label }}<br>
-        {{ form.anecdote(class="form-control") }}<br>
-        {% for error in form.anecdote.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-        {% endfor %}
+            {{ form.anecdote.label }}<br>
+            {{ form.anecdote(class="form-control") }}<br>
+            {% for error in form.anecdote.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+            {% endfor %}
         </p>
         <p>
         {{ form.boards.label }}<br>

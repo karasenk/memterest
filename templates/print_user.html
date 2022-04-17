@@ -26,6 +26,9 @@
             </a>
         {% endfor %}
         {% endif %}
+        {% if user == current_user %}
+            <a href="/new_board"><div class="redbtn">Добавить доску</div></a>
+        {% endif %}
     </div>
 </div>
 
