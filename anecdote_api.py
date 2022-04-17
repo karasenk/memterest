@@ -22,7 +22,7 @@ def get_anecdote():
     db_sess = create_session()
     form.boards.choices = [b[0] for b in db_sess.query(
         Board.name).filter(Board.user_id == current_user.id).all()]
-    return render_template('anecdote.html', form=form, title='Загрузка анекдота')
+    return render_template('anecdote.html', form=form, title='Загрузка анекдота', current_user=current_user)
 
 
 @blueprint.route('/new_anecdote', methods=['POST'])

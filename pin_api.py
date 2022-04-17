@@ -69,20 +69,25 @@ def print_mems_and_anecs(cat_id=0):
 
 @blueprint.route('/pin/<int:mem_id>', methods=['GET', 'POST'])
 def print_mem(mem_id):
+    curus = current_user
+    if curus.__class__ == mixins.AnonymousUserMixin:
+        curus = None
+
     db_sess = create_session()
     mem = db_sess.query(Pin).filter(Pin.id == mem_id)[0]
     username = db_sess.query(User.username).filter(User.id == mem.user_id)[0][0]
     boards = []
-    for board in db_sess.query(Board).all():
-        if board.user_id == current_user.id or \
-                current_user.username in board.collaborators.split():
-            boards.append(board)
+    if curus:
+        for board in db_sess.query(Board).all():
+            if board.user_id == curus.id or \
+                    curus.username in board.collaborators.split():
+                boards.append(board)
     if request.method == 'POST':
         board = db_sess.query(Board).filter(Board.id == int(request.form['board']))[0]
         mem.boards.append(board)
         db_sess.commit()
     return render_template('print_pin.html', mem=mem, username=username,
-                           current_user=current_user, title=mem.title, boards=boards)
+                           current_user=curus, title=mem.title, boards=boards)
 
 
 @blueprint.route('/delete_mem/<int:mem_id>')

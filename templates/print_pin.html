@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 
+<div class="yellowblock" style="position:absolute;top:90px;left:20%;z-index: -1;">
+{% if boards %}
 <form method="post">
     <select name="board">
         {% for board in boards %}
@@ -9,9 +11,10 @@
     </select>
     <button type="submit">Сохранить</button>
 </form>
+{% endif %}
 <h1>{{ mem.title }}</h1>
 <div>
-    <img src="../{{ mem.mem_filename }}">
+    <img src="../{{ mem.mem_filename }}" width="100%">
 </div>
 
 <div>
@@ -30,6 +33,7 @@
             <div class="redbtn">Удалить мем</div>
         </a>
     {% endif %}
+</div>
 </div>
 
 {% endblock %}
