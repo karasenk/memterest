@@ -1,14 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 
+<div class="yellowblock" style="position:relative;left:20%;top:30px">
 <h1>Выберите категорию</h1>
 <form class="form-control" method="post">
-  <select name="category">
+  <p><select name="category">
       {% for cat in categories %}
         <option value="{{cat.id}}">{{cat.name}}</option>
       {% endfor %}
-  </select>
-  <button type="submit">Показать</button>
+  </select></p>
+  <p><button type="submit">Показать</button></p>
 </form>
+</div>
 
 {% endblock %}
