@@ -16,7 +16,11 @@ blueprint = Blueprint(
 def print_board(board_id):
     db_sess = create_session()
     board = db_sess.query(Board).filter(Board.id == board_id)[0]
-    collaborators = db_sess.query(User).filter(User.username in board.collaborators.split())
+    collaborators0 = db_sess.query(User).all()
+    collaborators = []
+    for c in collaborators0:
+        if c.username in board.collaborators.split():
+            collaborators.append(c)
     pins0 = db_sess.query(Pin)
     pins = []
     for pin in pins0:
