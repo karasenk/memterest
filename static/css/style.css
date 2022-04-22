@@ -52,6 +52,11 @@ header {
     float: left;
 }
 
+.not_found {
+    font-size: 800%;
+    color: #EA272C;
+    text-align: center;}
+
 .avatar {
     margin: 14px;
     float: right;

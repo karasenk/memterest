@@ -29,6 +29,11 @@ app.register_blueprint(board_api.blueprint)
 app.register_blueprint(category_and_search_api.blueprint)
 
 
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('not_found.html', title='Not Found')
+
+
 @login_manager.user_loader
 def load_user(user_id):
     db_sess = create_session()
