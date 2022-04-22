@@ -1,7 +1,7 @@
 {% extends "pins.html" %}
 {% block info %}
 
-<div class="yellowblock" style="position:relative;top:10px;left:20%;z-index: -1;">
+<div class="yellowblock" style="position:relative;top:10px;left:20%;z-index: 5;">
     <a href="/user/{{ board.user.id }}">  <! не работает кста >
         <img src={% if not board.user.photo_filename %}"../static/img/defaultavatar.png"
         {% else %}"../{{ board.user.photo_filename }}"
