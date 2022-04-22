@@ -22,7 +22,7 @@ def get_anecdote():
     db_sess = create_session()
     form.boards.choices = [b[0] for b in db_sess.query(
         Board.name).filter(Board.user_id == current_user.id).all()]
-    return render_template('anecdote.html', form=form, title='Загрузка анекдота')
+    return render_template('anecdote.html', form=form, title='Загрузка анекдота', current_user=current_user)
 
 
 @blueprint.route('/new_anecdote', methods=['POST'])
@@ -45,20 +45,25 @@ def post_anecdote():
 
 @blueprint.route('/anec/<int:anec_id>', methods=['GET', 'POST'])
 def print_anecdote(anec_id):
+    curus = current_user
+    if curus.__class__ == mixins.AnonymousUserMixin:
+        curus = None
+
     db_sess = create_session()
     anec = db_sess.query(Anecdote).filter(Anecdote.id == anec_id)[0]
     username = db_sess.query(User.username).filter(User.id == anec.user_id)[0][0]
     boards = []
-    for board in db_sess.query(Board).all():
-        if board.user_id == current_user.id or \
-                current_user.username in board.collaborators.split():
-            boards.append(board)
+    if curus:
+        for board in db_sess.query(Board).all():
+            if board.user_id == current_user.id or \
+                    current_user.username in board.collaborators.split():
+                boards.append(board)
     if request.method == 'POST':
         board = db_sess.query(Board).filter(Board.id == int(request.form['board']))[0]
         anec.boards.append(board)
         db_sess.commit()
     return render_template('print_anecdote.html', anec=anec, username=username,
-                           current_user=current_user, title=anec.title, boards=boards)
+                           current_user=curus, title=anec.title, boards=boards)
 
 
 @blueprint.route('/delete_anec/<int:anec_id>')

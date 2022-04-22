@@ -12,6 +12,14 @@ h1 {
     font-weight: 400;
     font-size: 200%;
     padding-left: 30px;
+    padding-bottom: 0px;
+    color: #B11D30;
+}
+h3 {
+    font-weight: 400;
+    font-size: 150%;
+    padding-top: 0px;
+    padding-left: 26px;
     color: #B11D30;
 }
 
@@ -55,18 +63,16 @@ a {
 }
 
 /* основные элементы */
-.redbtn, ::-webkit-file-upload-button, input[type=submit] {
+.redbtn, ::-webkit-file-upload-button, input[type=submit], button {
+    border: 0px;
     font-size: 125%;
+    color: #FDE6D1;
     background-color: #EA272C;
     color: #FDE6D1;
     padding: 13px;
     margin-top:14px;
     margin-right:15px;
     border-radius: 5%;
-}
-
-.redbtn {
-    float: right;
 }
 
 .yelbtn {
@@ -76,7 +82,6 @@ a {
     padding: 13px;
     margin-top:14px;
     margin-right:15px;
-    float: right;
     border-radius: 5%;
 }
 
@@ -100,7 +105,7 @@ a {
 
 
 /* инпуты */
-input[type=submit] {
+input[type=submit], button[type=submit] {
     font-size: 100%;
     padding: 8px;
     margin-top:5px;

@@ -3,79 +3,70 @@
 
 {% block info %}
 {% endblock %}
-<div style="position:absolute;top:90px;left:3%;z-index: -1;width:30%;">
-{% for pin in pins %}
-    {% if loop.index%3==0 %}
-    <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
-        <a href="/pin/{{pin['id']}}">
-        <img src="../{{pin['mem']}}" alt="{{pin['alt']}}" width="100%">
-            <h1>{{ pin.title }}</h1>
-        </a>
-        <a href="/user/{{ pin.author.id }}"><p>{{ pin.author.username }}</p></a>
-    </div>
-    {% endif %}
-{% endfor %}
-    {% for anec in anecs %}
-    {% if loop.index%3==0 %}
-    <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
-        <a href="/anec/{{anec.id}}">
-        <p> {{anec.text}} </p>
-            <h1>{{ anec.title }}</h1>
-        </a>
-        <a href="/user/{{ anec.author.id }}"><p>{{ anec.author.username }}</p></a>
-    </div>
-    {% endif %}
-{% endfor %}
-</div>
 
-<div style="position:absolute;top:90px;left:35%;z-index: -1;width:30%;">
-{% for pin in pins %}
-    {% if loop.index%3==1 %}
-    <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
-        <a href="/pin/{{pin['id']}}">
-        <img src="../{{pin['mem']}}" alt="{{pin['alt']}}" width="100%">
-            <h1>{{ pin.title }}</h1>
-        </a>
-        <a href="/user/{{ pin.author.id }}"><p>{{ pin.author.username }}</p></a>
+<div style="position:relative;top:30px;width:100%;">
+    <div style="position:absolute;left:3%;z-index: -1;width:28%;">
+    {% for post in posts %}
+        {% if loop.index%3==0 %}
+        <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
+            {% if post.type == 'mem' %}
+                <a href="/pin/{{post.id}}">
+                <img src="../{{post['mem']}}" alt="{{post['alt']}}" width="100%">
+                    <h1>{{ post.title }}</h1>
+                </a>
+            {% elif post.type == 'anec' %}
+                <a href="/anec/{{post.id}}">
+                <p> {{ post.text }} </p>
+                    <h1>{{ post.title }}</h1>
+                </a>
+            {% endif %}
+            <a href="/user/{{ post.author.id }}"><p>{{ post.author.username }}</p></a>
+        </div>
+        {% endif %}
+    {% endfor %}
     </div>
-    {% endif %}
-{% endfor %}
-    {% for anec in anecs %}
-    {% if loop.index%3==1 %}
-    <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
-        <a href="/anec/{{anec.id}}">
-        <p> {{anec.text}} </p>
-            <h1>{{ anec.title }}</h1>
-        </a>
-        <a href="/user/{{ anec.author.id }}"><p>{{ anec.author.username }}</p></a>
-    </div>
-    {% endif %}
-{% endfor %}
-</div>
 
-<div style="position:absolute;top:90px;left:67%;z-index: -1;width:30%;">
-{% for pin in pins %}
-    {% if loop.index%3==2 %}
-    <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
-        <a href="/pin/{{pin['id']}}">
-            <img src="../{{pin['mem']}}" alt="{{pin['alt']}}" width="100%">
-            <h1>{{ pin.title }}</h1>
-        </a>
-        <a href="/user/{{ pin.author.id }}"><p>{{ pin.author.username }}</p></a>
+    <div style="position:absolute;left:36%;z-index: -1;width:28%;">
+    {% for post in posts %}
+        {% if loop.index%3==1 %}
+        <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
+            {% if post.type == 'mem' %}
+                <a href="/pin/{{post.id}}">
+                <img src="../{{post['mem']}}" alt="{{post['alt']}}" width="100%">
+                    <h1>{{ post.title }}</h1>
+                </a>
+            {% elif post.type == 'anec' %}
+                <a href="/anec/{{post.id}}">
+                <p> {{post.text}} </p>
+                    <h1>{{ post.title }}</h1>
+                </a>
+            {% endif %}
+            <a href="/user/{{ post.author.id }}"><p>{{ post.author.username }}</p></a>
+        </div>
+        {% endif %}
+    {% endfor %}
     </div>
-    {% endif %}
-{% endfor %}
-{% for anec in anecs %}
-    {% if loop.index%3==2 %}
-    <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
-        <a href="/anec/{{anec.id}}">
-        <p> {{anec.text}} </p>
-            <h1>{{ anec.title }}</h1>
-        </a>
-        <a href="/user/{{ anec.author.id }}"><p>{{ anec.author.username }}</p></a>
+
+    <div style="position:absolute;left:67%;z-index: -1;width:28%;">
+    {% for post in posts %}
+        {% if loop.index%3==2 %}
+        <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
+            {% if post.type == 'mem' %}
+                <a href="/pin/{{post.id}}">
+                <img src="../{{post['mem']}}" alt="{{post['alt']}}" width="100%">
+                    <h1>{{ post.title }}</h1>
+                </a>
+            {% elif post.type == 'anec' %}
+                <a href="/anec/{{post.id}}">
+                <p> {{post.text}} </p>
+                    <h1>{{ post.title }}</h1>
+                </a>
+            {% endif %}
+            <a href="/user/{{ post.author.id }}"><p>{{ post.author.username }}</p></a>
+        </div>
+        {% endif %}
+    {% endfor %}
     </div>
-    {% endif %}
-{% endfor %}
 </div>
 
 {% endblock %}
