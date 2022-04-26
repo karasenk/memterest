@@ -1,6 +1,6 @@
 import datetime
 
-from flask import Blueprint, render_template, redirect, request
+from flask import Blueprint, render_template, redirect, request, abort
 from data.db_session import create_session
 from data.pin import Pin
 from data.anecdote import Anecdote
@@ -23,8 +23,8 @@ def print_mems_and_anecs(cat_id=0):
     if curus.__class__ == mixins.AnonymousUserMixin:
         curus = None
     db_sess = create_session()
-    pins = db_sess.query(Pin).order_by(Pin.id.desc()).all()
-    anecs = db_sess.query(Anecdote).order_by(Anecdote.id.desc()).all()
+    pins = db_sess.query(Pin).all()
+    anecs = db_sess.query(Anecdote).all()
     if cat_id == 0:
         title = 'Главная страница'
     else:
@@ -43,6 +43,7 @@ def print_mems_and_anecs(cat_id=0):
                                   'title': pin.title,
                                   'author': db_sess.query(User).filter(User.id == pin.user_id)[0]
                                   })
+                    break
         for anec in anecs:
             for c in anec.categories:
                 if c == cat:
@@ -52,6 +53,7 @@ def print_mems_and_anecs(cat_id=0):
                                    'title': anec.title,
                                    'author': db_sess.query(User).filter(User.id == anec.user_id)[0]
                                    })
+                    break
     else:
         for pin in pins:
             pins1.append({'type': 'mem',
@@ -69,6 +71,7 @@ def print_mems_and_anecs(cat_id=0):
                            'author': db_sess.query(User).filter(User.id == anec.user_id)[0]
                            })
     posts = pins1 + anecs1
+    posts = list(sorted(posts, key=lambda x: x['id']))[::-1]
     return render_template('pins.html', title=title, posts=posts, current_user=curus)
 
 
@@ -79,20 +82,23 @@ def print_mem(mem_id):
         curus = None
 
     db_sess = create_session()
-    mem = db_sess.query(Pin).filter(Pin.id == mem_id)[0]
-    username = db_sess.query(User.username).filter(User.id == mem.user_id)[0][0]
-    boards = []
-    if curus:
-        for board in db_sess.query(Board).all():
-            if board.user_id == curus.id or \
-                    curus.username in board.collaborators.split():
-                boards.append(board)
-    if request.method == 'POST':
-        board = db_sess.query(Board).filter(Board.id == int(request.form['board']))[0]
-        mem.boards.append(board)
-        db_sess.commit()
-    return render_template('print_pin.html', mem=mem, username=username,
-                           current_user=curus, title=mem.title, boards=boards)
+    mem = db_sess.query(Pin).filter(Pin.id == mem_id).all()
+    if mem:
+        mem = mem[0]
+        username = db_sess.query(User.username).filter(User.id == mem.user_id)[0][0]
+        boards = []
+        if curus:
+            for board in db_sess.query(Board).all():
+                if board.user_id == curus.id or \
+                        curus.username in board.collaborators.split():
+                    boards.append(board)
+        if request.method == 'POST':
+            board = db_sess.query(Board).filter(Board.id == int(request.form['board']))[0]
+            mem.boards.append(board)
+            db_sess.commit()
+        return render_template('print_pin.html', mem=mem, username=username,
+                               current_user=curus, title=mem.title, boards=boards)
+    abort(404)
 
 
 @blueprint.route('/delete_mem/<int:mem_id>')

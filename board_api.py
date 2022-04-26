@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, abort
 from data.db_session import create_session
 from data.board import Board
 from data.user import User
@@ -15,7 +15,10 @@ blueprint = Blueprint(
 @blueprint.route('/board/<int:board_id>')
 def print_board(board_id):
     db_sess = create_session()
-    board = db_sess.query(Board).filter(Board.id == board_id)[0]
+    board = db_sess.query(Board).filter(Board.id == board_id).all()
+    if not board:
+        abort(404)
+    board = board[0]
     collaborators0 = db_sess.query(User).all()
     collaborators = []
     for c in collaborators0:

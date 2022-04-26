@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect
+from flask import Blueprint, render_template, redirect, abort
 from forms.user import LoginForm
 from data.db_session import create_session
 from data.user import User
@@ -40,5 +40,7 @@ def login_post():
 @blueprint.route('/user/<int:user_id>')
 def get_user_page(user_id):
     db_sess = create_session()
-    user = db_sess.query(User).filter(User.id == user_id)[0]
-    return render_template('print_user.html', title=user.username, user=user)
+    user = db_sess.query(User).filter(User.id == user_id).all()
+    if user:
+        return render_template('print_user.html', title=user[0].username, user=user[0])
+    abort(404)

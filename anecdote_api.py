@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, request
+from flask import Blueprint, render_template, redirect, request, abort
 from data.db_session import create_session
 from data.anecdote import Anecdote
 from data.board import Board
@@ -50,7 +50,10 @@ def print_anecdote(anec_id):
         curus = None
 
     db_sess = create_session()
-    anec = db_sess.query(Anecdote).filter(Anecdote.id == anec_id)[0]
+    anec = db_sess.query(Anecdote).filter(Anecdote.id == anec_id).all()
+    if not anec:
+        abort(404)
+    anec = anec[0]
     username = db_sess.query(User.username).filter(User.id == anec.user_id)[0][0]
     boards = []
     if curus:
