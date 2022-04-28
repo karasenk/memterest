@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, abort
 from forms.user import LoginForm
 from data.db_session import create_session
 from data.user import User
-from flask_login import login_user
+from flask_login import login_user, login_required, logout_user
 
 
 blueprint = Blueprint(
@@ -35,6 +35,13 @@ def login_post():
         login_user(user, remember=form.remember_me.data)
         return redirect('/')
     return render_template('login.html', form=form, title='Авторизация', current_user=None)
+
+
+@blueprint.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect("/login")
 
 
 @blueprint.route('/user/<int:user_id>')
