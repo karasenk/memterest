@@ -67,6 +67,22 @@
         {% endif %}
     {% endfor %}
     </div>
+    <div class="redbtn">
+        {% if back > -1 %}
+            {% if cat != 0 %}
+                <a href="/categories/{{cat}}/{{back}}"> <- </a>
+            {% else %}
+                <a href="/{{back}}"> <- </a>
+            {% endif %}
+        {% endif %}
+        {% if forward > -1 %}
+            {% if cat != 0 %}
+                <a href="/categories/{{cat}}/{{forward}}"> -> </a>
+            {% else %}
+                <a href="/{{forward}}"> -> </a>
+            {% endif %}
+        {% endif %}
+    </div>
 </div>
 
 {% endblock %}

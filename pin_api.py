@@ -1,5 +1,3 @@
-import datetime
-
 from flask import Blueprint, render_template, redirect, request, abort
 from data.db_session import create_session
 from data.pin import Pin
@@ -18,13 +16,15 @@ blueprint = Blueprint(
 
 @blueprint.route('/')
 @blueprint.route('/categories/<int:cat_id>')
-def print_mems_and_anecs(cat_id=0):
+@blueprint.route('/categories/<int:cat_id>/<int:page_num>')
+@blueprint.route('/<int:page_num>')
+def print_mems_and_anecs(cat_id=0, page_num=0):
     curus = current_user
     if curus.__class__ == mixins.AnonymousUserMixin:
         curus = None
     db_sess = create_session()
-    pins = db_sess.query(Pin).all()
-    anecs = db_sess.query(Anecdote).all()
+    pins = db_sess.query(Pin).all()[::-1]
+    anecs = db_sess.query(Anecdote).all()[::-1]
     if cat_id == 0:
         title = 'Главная страница'
     else:
@@ -33,29 +33,21 @@ def print_mems_and_anecs(cat_id=0):
     pins1 = []
     anecs1 = []
     if cat_id != 0:
+        p = []
         for pin in pins:
             for c in pin.categories:
                 if c == cat:
-                    pins1.append({'type': 'mem',
-                                  'mem': f'static/img/mem{pin.id}.jpg',
-                                  'alt': pin.alt,
-                                  'id': pin.id,
-                                  'title': pin.title,
-                                  'author': db_sess.query(User).filter(User.id == pin.user_id)[0]
-                                  })
+                    p.append(pin)
                     break
+        a = []
         for anec in anecs:
             for c in anec.categories:
                 if c == cat:
-                    anecs1.append({'type': 'anec',
-                                   'text': anec.text,
-                                   'id': anec.id,
-                                   'title': anec.title,
-                                   'author': db_sess.query(User).filter(User.id == anec.user_id)[0]
-                                   })
-                    break
-    else:
-        for pin in pins:
+                    a.append(anec)
+        pins = p
+        anecs = a
+    if 4 * page_num < len(pins):
+        for pin in pins[4 * page_num:]:
             pins1.append({'type': 'mem',
                           'mem': f'static/img/mem{pin.id}.jpg',
                           'alt': pin.alt,
@@ -63,16 +55,26 @@ def print_mems_and_anecs(cat_id=0):
                           'title': pin.title,
                           'author': db_sess.query(User).filter(User.id == pin.user_id)[0]
                           })
-        for anec in anecs:
+            if len(pins1) == 4:
+                break
+    if 4 * page_num < len(anecs):
+        for anec in anecs[4 * page_num:]:
             anecs1.append({'type': 'anec',
                            'text': anec.text,
                            'id': anec.id,
                            'title': anec.title,
                            'author': db_sess.query(User).filter(User.id == anec.user_id)[0]
                            })
+            if len(anecs1) == 4:
+                break
     posts = pins1 + anecs1
     posts = list(sorted(posts, key=lambda x: x['id']))[::-1]
-    return render_template('pins.html', title=title, posts=posts, current_user=curus)
+    back = page_num - 1
+    if (page_num + 1) * 4 >= len(anecs) and (page_num + 1) * 4 >= len(pins):
+        forward = -1
+    else:
+        forward = page_num + 1
+    return render_template('pins.html', title=title, posts=posts, current_user=curus, back=back, forward=forward, cat=cat_id)
 
 
 @blueprint.route('/pin/<int:mem_id>', methods=['GET', 'POST'])
