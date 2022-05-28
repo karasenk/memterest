@@ -86,6 +86,7 @@ def print_mem(mem_id):
     db_sess = create_session()
     mem = db_sess.query(Pin).filter(Pin.id == mem_id).all()
     if mem:
+        saved = False
         mem = mem[0]
         username = db_sess.query(User.username).filter(User.id == mem.user_id)[0][0]
         boards = []
@@ -96,10 +97,11 @@ def print_mem(mem_id):
                     boards.append(board)
         if request.method == 'POST':
             board = db_sess.query(Board).filter(Board.id == int(request.form['board']))[0]
+            saved = board.name
             mem.boards.append(board)
             db_sess.commit()
         return render_template('print_pin.html', mem=mem, username=username,
-                               current_user=curus, title=mem.title, boards=boards)
+                               current_user=curus, title=mem.title, boards=boards, saved=saved)
     abort(404)
 
 

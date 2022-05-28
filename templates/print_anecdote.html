@@ -12,6 +12,9 @@
     <button type="submit">Сохранить</button>
 </form>
 {% endif %}
+{% if saved %}
+    <p>Сохранено на доске {{saved}}</p>
+{% endif %}
 <h1>{{ anec.title }}</h1>
 <div>
     <p>{{ anec.text }}</p>

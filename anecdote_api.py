@@ -53,6 +53,7 @@ def print_anecdote(anec_id):
     anec = db_sess.query(Anecdote).filter(Anecdote.id == anec_id).all()
     if not anec:
         abort(404)
+    saved = False
     anec = anec[0]
     username = db_sess.query(User.username).filter(User.id == anec.user_id)[0][0]
     boards = []
@@ -63,10 +64,11 @@ def print_anecdote(anec_id):
                 boards.append(board)
     if request.method == 'POST':
         board = db_sess.query(Board).filter(Board.id == int(request.form['board']))[0]
+        saved = board.name
         anec.boards.append(board)
         db_sess.commit()
     return render_template('print_anecdote.html', anec=anec, username=username,
-                           current_user=curus, title=anec.title, boards=boards)
+                           current_user=curus, title=anec.title, boards=boards, saved=saved)
 
 
 @blueprint.route('/delete_anec/<int:anec_id>')

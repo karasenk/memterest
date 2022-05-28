@@ -12,6 +12,9 @@
     <button type="submit">Сохранить</button>
 </form>
 {% endif %}
+{% if saved %}
+    <p>Сохранено на доске {{saved}}</p>
+{% endif %}
 <h1>{{ mem.title }}</h1>
 <div>
     <img src="../{{ mem.mem_filename }}" width="100%">
