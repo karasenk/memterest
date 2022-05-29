@@ -17,7 +17,9 @@
 {% endif %}
 <h1>{{ anec.title }}</h1>
 <div>
-    <p>{{ anec.text }}</p>
+    {% for a in anec.text %}
+        <p>{{a}}</p>
+    {% endfor %}
 </div>
 
 <div>

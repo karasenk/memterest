@@ -60,7 +60,7 @@ def print_mems_and_anecs(cat_id=0, page_num=0):
     if 4 * page_num < len(anecs):
         for anec in anecs[4 * page_num:]:
             anecs1.append({'type': 'anec',
-                           'text': anec.text,
+                           'text': anec.text.split('\n'),
                            'id': anec.id,
                            'title': anec.title,
                            'author': db_sess.query(User).filter(User.id == anec.user_id)[0]

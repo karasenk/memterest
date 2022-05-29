@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from flask_login import LoginManager, current_user, mixins
+from flask_login import LoginManager
 from flask_restful import Api
 import board_api
 import anecdote_api

@@ -67,8 +67,13 @@ def print_anecdote(anec_id):
         saved = board.name
         anec.boards.append(board)
         db_sess.commit()
+    anec = {'title': anec.title,
+            'user_id': anec.user_id,
+            'text': anec.text.split('\n'),
+            'source': anec.source,
+            'id': anec.id}
     return render_template('print_anecdote.html', anec=anec, username=username,
-                           current_user=curus, title=anec.title, boards=boards, saved=saved)
+                           current_user=curus, title=anec['title'], boards=boards, saved=saved)
 
 
 @blueprint.route('/delete_anec/<int:anec_id>')

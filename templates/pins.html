@@ -16,7 +16,9 @@
                 </a>
             {% elif post.type == 'anec' %}
                 <a href="/anec/{{post.id}}">
-                <p> {{ post.text }} </p>
+                {% for t in post.text %}
+                    <p> {{ t }} </p>
+                {% endfor %}
                     <h1>{{ post.title }}</h1>
                 </a>
             {% endif %}
@@ -37,7 +39,9 @@
                 </a>
             {% elif post.type == 'anec' %}
                 <a href="/anec/{{post.id}}">
-                <p> {{post.text}} </p>
+                {% for t in post.text %}
+                    <p> {{ t }} </p>
+                {% endfor %}
                     <h1>{{ post.title }}</h1>
                 </a>
             {% endif %}
@@ -58,7 +62,9 @@
                 </a>
             {% elif post.type == 'anec' %}
                 <a href="/anec/{{post.id}}">
-                <p> {{post.text}} </p>
+                {% for t in post.text %}
+                    <p> {{ t }} </p>
+                {% endfor %}
                     <h1>{{ post.title }}</h1>
                 </a>
             {% endif %}

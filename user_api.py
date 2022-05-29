@@ -1,8 +1,10 @@
-from flask import Blueprint, render_template, redirect, abort
-from forms.user import LoginForm
+from flask import Blueprint, render_template, redirect, abort, request
+from forms.user import LoginForm, NewPasswordForm
 from data.db_session import create_session
 from data.user import User
 from flask_login import login_user, login_required, logout_user
+import random
+from message import send_message
 
 
 blueprint = Blueprint(
@@ -51,3 +53,38 @@ def get_user_page(user_id):
     if user:
         return render_template('print_user.html', title=user[0].username, user=user[0])
     abort(404)
+
+
+@blueprint.route('/password_recovery', methods=['GET', 'POST'])
+def password_recovery():
+    if request.method == 'GET':
+        return render_template('password_recovery.html', title='Восстановление пароля')
+    session = create_session()
+    user = session.query(User).filter(User.email == request.form['email']).all()
+    if not user:
+        return render_template('password_recovery.html', message=True, title='Восстановление пароля')
+    user = user[0]
+    code = random.randrange(1, 1000000000)
+    while session.query(User).filter(User.code == code).all():
+        code = random.randrange(1, 1000000000)
+    user.code = code
+    session.commit()
+    send_message(user.email, f'Чтобы сбросить пароль - /password_reset/{code}', 'Сброс пароля')
+    return redirect('/')
+
+
+@blueprint.route('/password_reset/<int:code>', methods=['GET', 'POST'])
+def password_reset(code):
+    session = create_session()
+    user = session.query(User).filter(User.code == code).all()
+    if not user:
+        abort(404)
+    form = NewPasswordForm()
+    if request.method == 'GET':
+        return render_template('password_reset.html', form=form, title='Сброс пароля')
+    if form.password.data != form.password_again.data:
+        return render_template('password_reset.html', form=form,
+                               title='Сброс пароля', message='Пароли не совпадают.')
+    user[0].set_password(form.password.data)
+    session.commit()
+    return redirect('/login')
