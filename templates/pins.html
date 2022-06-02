@@ -11,7 +11,7 @@
         <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
             {% if post.type == 'mem' %}
                 <a href="/pin/{{post.id}}">
-                <img src="../{{post['mem']}}" alt="{{post['alt']}}" width="100%">
+                <img src="/{{post['mem']}}" alt="{{post['alt']}}" width="100%">
                     <h1>{{ post.title }}</h1>
                 </a>
             {% elif post.type == 'anec' %}
@@ -34,7 +34,7 @@
         <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
             {% if post.type == 'mem' %}
                 <a href="/pin/{{post.id}}">
-                <img src="../{{post['mem']}}" alt="{{post['alt']}}" width="100%">
+                <img src="/{{post['mem']}}" alt="{{post['alt']}}" width="100%">
                     <h1>{{ post.title }}</h1>
                 </a>
             {% elif post.type == 'anec' %}
@@ -57,7 +57,7 @@
         <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
             {% if post.type == 'mem' %}
                 <a href="/pin/{{post.id}}">
-                <img src="../{{post['mem']}}" alt="{{post['alt']}}" width="100%">
+                <img src="/{{post['mem']}}" alt="{{post['alt']}}" width="100%">
                     <h1>{{ post.title }}</h1>
                 </a>
             {% elif post.type == 'anec' %}
@@ -75,18 +75,10 @@
     </div>
     <div class="redbtn">
         {% if back > -1 %}
-            {% if cat != 0 %}
-                <a href="/categories/{{cat}}/{{back}}"> <- </a>
-            {% else %}
-                <a href="/{{back}}"> <- </a>
-            {% endif %}
+            <a href="{{href}}/{{back}}"> <- </a>
         {% endif %}
         {% if forward > -1 %}
-            {% if cat != 0 %}
-                <a href="/categories/{{cat}}/{{forward}}"> -> </a>
-            {% else %}
-                <a href="/{{forward}}"> -> </a>
-            {% endif %}
+        <a href="{{href}}/{{forward}}"> -> </a>
         {% endif %}
     </div>
 </div>

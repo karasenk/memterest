@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
     <title>{{title}}</title>
 </head>
 <header>
     <a href="/">
-    <div class="logo"><img src="../static/img/logo.png" style="width:60px;height:auto;"></div>
+    <div class="logo"><img src="/static/img/logo.png" style="width:60px;height:auto;"></div>
     <div class="memterest">MEMTEREST</div></a>
     <div class="avatar"><a href={% if current_user == None %}"/register"
                                 {% else %}"/user/{{ current_user.id }}"
                                 {% endif %}>
-        <img src={% if current_user == None or not current_user.photo_filename %}"../static/img/defaultavatar.png"
-                 {% else %}"../{{ current_user.photo_filename }}"
+        <img src={% if current_user == None or not current_user.photo_filename %}"/static/img/defaultavatar.png"
+                 {% else %}"/{{ current_user.photo_filename }}"
                  {% endif %}
              style="overflow:hidden;width:50px;height:50px;border-radius: 100%;">
         </a>

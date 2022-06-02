@@ -26,8 +26,10 @@ def print_mems_and_anecs(cat_id=0, page_num=0):
     pins = db_sess.query(Pin).all()[::-1]
     anecs = db_sess.query(Anecdote).all()[::-1]
     if cat_id == 0:
+        href = ''
         title = 'Главная страница'
     else:
+        href = f'/{cat_id}'
         cat = db_sess.query(Category).filter(Category.id == cat_id)[0]
         title = cat.name
     pins1 = []
@@ -74,7 +76,9 @@ def print_mems_and_anecs(cat_id=0, page_num=0):
         forward = -1
     else:
         forward = page_num + 1
-    return render_template('pins.html', title=title, posts=posts, current_user=curus, back=back, forward=forward, cat=cat_id)
+    return render_template('pins.html', title=title, posts=posts,
+                           current_user=curus, back=back, forward=forward,
+                           cat=cat_id, href=href)
 
 
 @blueprint.route('/pin/<int:mem_id>', methods=['GET', 'POST'])
