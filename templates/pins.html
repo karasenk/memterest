@@ -76,16 +76,16 @@
     <div class="redbtn">
         {% if back > -1 %}
             {% if cat != 0 %}
-                <a href="/categories/{{cat}}/{{back}}"> <- </a>
+                <a href="/categories/{{cat}}/{{back}}"><img src="../static/img/arrowleft.png"></a>
             {% else %}
-                <a href="/{{back}}"> <- </a>
+                <a href="/{{back}}"><img src="../static/img/arrowleft.png"></a>
             {% endif %}
         {% endif %}
         {% if forward > -1 %}
             {% if cat != 0 %}
-                <a href="/categories/{{cat}}/{{forward}}"> -> </a>
+                <a href="/categories/{{cat}}/{{forward}}"><img src="../static/img/arrowright.png"></a>
             {% else %}
-                <a href="/{{forward}}"> -> </a>
+                <a href="/{{forward}}"><img src="../static/img/arrowright.png"></a>
             {% endif %}
         {% endif %}
     </div>
