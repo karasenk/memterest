@@ -7,22 +7,14 @@
 <div style="position:relative;top:30px;width:100%;">
 <div style="position:absolute;left:75px">
     {% if back > -1 %}
-        {% if cat != 0 %}
-            <a href="/categories/{{cat}}/{{back}}"><img src="../static/img/arrowleftred.png"></a>
-        {% else %}
-            <a href="/{{back}}"><img src="../static/img/arrowleftred.png"></a>
-        {% endif %}
+        <a href="{{href}}/{{back}}"><img src="/static/img/arrowleftred.png"></a>
     {% else %}
-        <img src="../static/img/arrowleftyellow.png">
+        <img src="/static/img/arrowleftyellow.png">
     {% endif %}
     {% if forward > -1 %}
-        {% if cat != 0 %}
-            <a href="/categories/{{cat}}/{{forward}}"><img src="../static/img/arrowrightred.png"></a>
-        {% else %}
-            <a href="/{{forward}}"><img src="../static/img/arrowrightred.png"></a>
-        {% endif %}
+        <a href="{{href}}/{{forward}}"><img src="/static/img/arrowrightred.png"></a>
     {% else %}
-        <img src="../static/img/arrowrightyellow.png">
+        <img src="/static/img/arrowrightyellow.png">
     {% endif %}
 </div>
 
