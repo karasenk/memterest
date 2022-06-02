@@ -4,7 +4,29 @@
 {% block info %}
 {% endblock %}
 
-<div style="position:relative;top:30px;width:100%;">
+<div>
+<div style="position:relative;top:30px;left:400px">
+    {% if back > -1 %}
+        {% if cat != 0 %}
+            <a href="/categories/{{cat}}/{{back}}"><img src="../static/img/arrowleftred.png"></a>
+        {% else %}
+            <a href="/{{back}}"><img src="../static/img/arrowleftred.png"></a>
+        {% endif %}
+    {% else %}
+        <img src="../static/img/arrowleftyellow.png">
+    {% endif %}
+    {% if forward > -1 %}
+        {% if cat != 0 %}
+            <a href="/categories/{{cat}}/{{forward}}"><img src="../static/img/arrowrightred.png"></a>
+        {% else %}
+            <a href="/{{forward}}"><img src="../static/img/arrowrightred.png"></a>
+        {% endif %}
+    {% else %}
+        <img src="../static/img/arrowrightyellow.png">
+    {% endif %}
+</div>
+
+<div style="position:relative;top:50px;width:100%;">
     <div style="position:absolute;left:3%;z-index: -1;width:28%;">
     {% for post in posts %}
         {% if loop.index%3==0 %}
@@ -73,22 +95,7 @@
         {% endif %}
     {% endfor %}
     </div>
-    <div class="redbtn">
-        {% if back > -1 %}
-            {% if cat != 0 %}
-                <a href="/categories/{{cat}}/{{back}}"><img src="../static/img/arrowleft.png"></a>
-            {% else %}
-                <a href="/{{back}}"><img src="../static/img/arrowleft.png"></a>
-            {% endif %}
-        {% endif %}
-        {% if forward > -1 %}
-            {% if cat != 0 %}
-                <a href="/categories/{{cat}}/{{forward}}"><img src="../static/img/arrowright.png"></a>
-            {% else %}
-                <a href="/{{forward}}"><img src="../static/img/arrowright.png"></a>
-            {% endif %}
-        {% endif %}
-    </div>
+</div>
 </div>
 
 {% endblock %}
