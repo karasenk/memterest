@@ -19,7 +19,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 api = Api(app)
-api.add_resource(users_resources.UsersListResource, '/register')
+api.add_resource(users_resources.UsersListResource, '/register', '/register/<message>')
 api.add_resource(board_resources.BoardListResource, '/new_board')
 api.add_resource(pin_resources.PinListResource, '/new_pin')
 app.register_blueprint(user_api.blueprint)

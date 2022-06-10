@@ -1,31 +1,60 @@
 from flask_restful import Resource
 from forms.user import RegisterForm
-from flask import render_template, make_response, redirect
+from flask import render_template, make_response, redirect, request
 from data.db_session import create_session
 from data.user import User
+from data.email_check import EmailCode
 from message import send_message
 from PIL import Image
 import io
+import random
+
+
+def email_check(form):
+    if not form.email.data:
+        return make_response(render_template('register.html', form=form,
+                                             title='Регистрация', message='Для начала введите почту'))
+    sess = create_session()
+    if sess.query(User).filter(User.email == form.email.data).first():
+        return make_response(render_template('register.html', form=form, title='Регистрация',
+                                             message='Пользователь с такой почтой уже зарегистрирован'))
+    code = random.randrange(1, 1000000000)
+    em = sess.query(EmailCode).filter(EmailCode.email == form.email.data).first()
+    if em:
+        em.code = code
+    else:
+        sess.add(EmailCode(email=form.email.data, code=code))
+    sess.commit()
+    try:
+        send_message(form.email.data, f'Введите в специальное поле одноразовый код: {code}', 'Код для регистрации')
+    except Exception as ex:
+        print(ex)
+    return make_response(render_template('register.html', form=form, title='Регистрация'))
 
 
 class UsersListResource(Resource):
     def get(self):
         form = RegisterForm()
-        return make_response(render_template('register.html',
-                                             form=form, title='Регистрация', current_user=None))
+        return make_response(render_template('register.html', form=form, title='Регистрация', current_user=None))
 
     def post(self):
         form = RegisterForm()
+        if 'send_code' in request.form.keys():
+            return email_check(form)
         if form.validate_on_submit():
             if form.password.data != form.password_again.data:
                 return make_response(render_template('register.html',
                                                      form=form, title='Регистрация', current_user=None,
                                                      message="Пароли не совпадают"))
             db_sess = create_session()
-            if db_sess.query(User).filter(User.email == form.email.data).first():
-                return make_response(render_template('register.html',
-                                                     form=form, title='Регистрация', current_user=None,
-                                                     message="Пользователь с такой почтой уже есть"))
+            em = db_sess.query(EmailCode).filter(EmailCode.email == form.email.data and
+                                                 EmailCode.code == form.email.code).all()
+            if em:
+                db_sess.delete(em[0])
+                db_sess.commit()
+            else:
+                return make_response(render_template('register.html', form=form,
+                                                     message='Введён неверный код подтверждения'))
             if db_sess.query(User).filter(User.username == form.username.data).first():
                 return make_response(render_template('register.html',
                                                      form=form, title='Регистрация', current_user=None,
