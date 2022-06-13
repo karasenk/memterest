@@ -47,7 +47,7 @@ def print_board(board_id, page_num=0):
                           'alt': pin.alt,
                           'id': pin.id,
                           'title': pin.title,
-                          'author': db_sess.query(User).filter(User.id == pin.user_id)[0]
+                          'author': db_sess.query(User).filter(User.id == pin.user_id).first()
                           })
             if len(pins1) == 4:
                 break
@@ -58,7 +58,7 @@ def print_board(board_id, page_num=0):
                            'text': anec.text.split('\n'),
                            'id': anec.id,
                            'title': anec.title,
-                           'author': db_sess.query(User).filter(User.id == anec.user_id)[0]
+                           'author': db_sess.query(User).filter(User.id == anec.user_id).first()
                            })
             if len(anecs1) == 4:
                 break

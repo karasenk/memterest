@@ -33,6 +33,7 @@
     <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
         {% if user == current_user %}
             <a href="/logout"><div class="redbtn">Выйти</div></a>
+            <a href="/delete_user/{{user.id}}"><div class="redbtn">Удалиться</div></a>
         {% endif %}
     </div>
 </div>

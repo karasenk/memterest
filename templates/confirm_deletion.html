@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="yellowblock" style="position:absolute;top:90px;left:20%;z-index: -1;">
+    <form action="" method="post" enctype="multipart/form-data">
+        <h3>Точно хотите удалить страничку?</h3>
+        <button name="confirm" value="1"> Да! </button>
+        <button name="confirm" value="0"> Нет, я передумал(а)</button>
+    </form>
+</div>
+{% endblock %}

@@ -46,6 +46,23 @@ def logout():
     return redirect("/login")
 
 
+@blueprint.route('/delete_user/<int:user_id>', methods=['POST', 'GET'])
+@login_required
+def delete_user(user_id):
+    if request.method == 'POST':
+        if request.form['confirm'] == '1':
+            logout()
+            db_sess = create_session()
+            user = db_sess.query(User).filter(User.id == user_id).all()
+            if not user:
+                return abort(404)
+            db_sess.delete(user[0])
+            db_sess.commit()
+            return redirect('/')
+        return redirect(f'/user/{user_id}')
+    return render_template('confirm_deletion.html', title='Подтверждение')
+
+
 @blueprint.route('/user/<int:user_id>')
 def get_user_page(user_id):
     db_sess = create_session()

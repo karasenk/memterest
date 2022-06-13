@@ -55,7 +55,11 @@ def print_anecdote(anec_id):
         abort(404)
     saved = False
     anec = anec[0]
-    username = db_sess.query(User.username).filter(User.id == anec.user_id)[0][0]
+    user = db_sess.query(User).filter(User.id == anec.user_id).first()
+    if user:
+        username = user.username
+    else:
+        username = 'Пользователь Удалён'
     boards = []
     if curus:
         for board in db_sess.query(Board).all():

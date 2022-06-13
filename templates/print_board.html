@@ -3,8 +3,8 @@
 
 <div class="yellowblock" style="position:relative;top:10px;left:20%;z-index: 5;">
     <a href="/user/{{ board.user.id }}">
-        <img src={% if not board.user.photo_filename %}"../static/img/defaultavatar.png"
-        {% else %}"../{{ board.user.photo_filename }}"
+        <img src={% if not board.user.photo_filename %}"/static/img/defaultavatar.png"
+        {% else %}"/{{ board.user.photo_filename }}"
         {% endif %} style="position:relative;overflow:hidden;
                            width:10%;height:10%;border-radius: 100%;float:right;z-index:1;"/></a>
         </a>

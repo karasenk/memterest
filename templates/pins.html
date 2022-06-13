@@ -25,7 +25,7 @@
         <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
             {% if post.type == 'mem' %}
                 <a href="/pin/{{post.id}}">
-                <img src="../{{post['mem']}}" alt="{{post['alt']}}" width="100%">
+                <img src="/{{post['mem']}}" alt="{{post['alt']}}" width="100%">
                     <h1>{{ post.title }}</h1>
                 </a>
             {% elif post.type == 'anec' %}
@@ -36,7 +36,11 @@
                     <h1>{{ post.title }}</h1>
                 </a>
             {% endif %}
-            <a href="/user/{{ post.author.id }}"><p>{{ post.author.username }}</p></a>
+            {% if post.author %}
+                <a href="/user/{{ post.author.id }}"><p>{{ post.author.username }}</p></a>
+            {% else %}
+                <p>Пользователь Удалён</p>
+            {% endif %}
         </div>
         {% endif %}
     {% endfor %}
@@ -48,7 +52,7 @@
         <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
             {% if post.type == 'mem' %}
                 <a href="/pin/{{post.id}}">
-                <img src="../{{post['mem']}}" alt="{{post['alt']}}" width="100%">
+                <img src="/{{post['mem']}}" alt="{{post['alt']}}" width="100%">
                     <h1>{{ post.title }}</h1>
                 </a>
             {% elif post.type == 'anec' %}
@@ -59,7 +63,11 @@
                     <h1>{{ post.title }}</h1>
                 </a>
             {% endif %}
-            <a href="/user/{{ post.author.id }}"><p>{{ post.author.username }}</p></a>
+            {% if post.author %}
+                <a href="/user/{{ post.author.id }}"><p>{{ post.author.username }}</p></a>
+            {% else %}
+                <p>Пользователь Удалён</p>
+            {% endif %}
         </div>
         {% endif %}
     {% endfor %}
@@ -71,7 +79,7 @@
         <div class="yellowblock" style="margin-bottom: 20px;width:100%;padding:15px;">
             {% if post.type == 'mem' %}
                 <a href="/pin/{{post.id}}">
-                <img src="../{{post['mem']}}" alt="{{post['alt']}}" width="100%">
+                <img src="/{{post['mem']}}" alt="{{post['alt']}}" width="100%">
                     <h1>{{ post.title }}</h1>
                 </a>
             {% elif post.type == 'anec' %}
@@ -82,7 +90,11 @@
                     <h1>{{ post.title }}</h1>
                 </a>
             {% endif %}
-            <a href="/user/{{ post.author.id }}"><p>{{ post.author.username }}</p></a>
+            {% if post.author %}
+                <a href="/user/{{ post.author.id }}"><p>{{ post.author.username }}</p></a>
+            {% else %}
+                <p>Пользователь Удалён</p>
+            {% endif %}
         </div>
         {% endif %}
     {% endfor %}

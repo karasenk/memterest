@@ -55,7 +55,7 @@ def print_mems_and_anecs(cat_id=0, page_num=0):
                           'alt': pin.alt,
                           'id': pin.id,
                           'title': pin.title,
-                          'author': db_sess.query(User).filter(User.id == pin.user_id)[0]
+                          'author': db_sess.query(User).filter(User.id == pin.user_id).first()
                           })
             if len(pins1) == 4:
                 break
@@ -65,7 +65,7 @@ def print_mems_and_anecs(cat_id=0, page_num=0):
                            'text': anec.text.split('\n'),
                            'id': anec.id,
                            'title': anec.title,
-                           'author': db_sess.query(User).filter(User.id == anec.user_id)[0]
+                           'author': db_sess.query(User).filter(User.id == anec.user_id).first()
                            })
             if len(anecs1) == 4:
                 break
@@ -92,7 +92,11 @@ def print_mem(mem_id):
     if mem:
         saved = False
         mem = mem[0]
-        username = db_sess.query(User.username).filter(User.id == mem.user_id)[0][0]
+        user = db_sess.query(User).filter(User.id == mem.user_id).first()
+        if user:
+            username = user.username
+        else:
+            username = 'Пользователь Удалён'
         boards = []
         if curus:
             for board in db_sess.query(Board).all():
